@@ -248,7 +248,7 @@ public class GameObject {
     /**
      * Updates the GameObject by its behaviors. Child objects are updated before the parent object.
      *
-     * @return
+     * @return this
      */
     public GameObject update() {
         if(!enabled) return this;

@@ -1,5 +1,6 @@
 package app.states;
 
+import app.objects.Card;
 import lib.GameCanvas;
 import lib.behaviors.TextStyle;
 import lib.gameobjects.ButtonObject;
@@ -22,7 +23,7 @@ public class ExampleState extends AbstractGameState {
     private final TextObject exampleTextObject = (TextObject) new TextObject(
             "example text", // text to be shown
             FontLoader.load("font/TitilliumWeb-ExtraLight.ttf").deriveFont(40f), //font type and font size
-            Color.BLACK, // text color
+            Color.WHITE, // text color
             TextStyle.TextAlign.ALIGN_CENTER // could also be aligned bottom, aligned left, aligned right, etc.
 
     ).setPosition(0, 0); // 0, 0 is center; negative is left or up, positive is right or down
@@ -35,7 +36,6 @@ public class ExampleState extends AbstractGameState {
             Color.BLACK, // text color
             true // whether to underline or not when being hovered over
     ).setPosition(0, 100);
-
     /**
      * constructor for the state
      * you can have it take some parameters,
@@ -51,7 +51,8 @@ public class ExampleState extends AbstractGameState {
      */
     @Override
     public void draw(GameCanvas canvas) {
-        exampleTextObject.updateAndDraw(canvas); // objects have builtin functions to draw on canvasses
+        exampleTextObject.updateAndDraw(canvas);
+        exampleButtonObject.updateAndDraw(canvas);
     }
 
     /**
@@ -62,6 +63,7 @@ public class ExampleState extends AbstractGameState {
     public void onMouseClick(MouseEvent me) {
         if (exampleButtonObject.isHovered()) {
             // do stuff
+            System.out.println("Clicked");
             // for example set the next state
             nextState = new ExampleState(); // make it another state progress to a different state
         }

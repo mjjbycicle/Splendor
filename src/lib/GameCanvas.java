@@ -68,13 +68,13 @@ public class GameCanvas extends JPanel {
                     RenderingHints.VALUE_ANTIALIAS_ON
             );
 
-            // Use highest image quality
+            // Use the highest image quality
             graphics.setRenderingHint(
                     RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR
             );
 
-            // Use highest render quality
+            // Use the highest render quality
             graphics.setRenderingHint(
                     RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY
