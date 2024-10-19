@@ -4,48 +4,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Value {
+public abstract class Value {
+    public abstract Map<Color, Integer> getGems();
 
-    private final Map<Color, Integer> gems;
+    public abstract Value with(Color color, int value);
 
-    public Value() {
-        gems = new HashMap<>();
-        for (Color c : Color.values()) {
-            gems.put(c, 0);
-        }
-    }
+    public abstract Value plus(Value value);
 
-    public Map<Color, Integer> getGems() {
-        return gems;
-    }
+    public abstract Value minus(Value value);
 
-    public Value with(Color color, int value) {
-        gems.put(color, value);
-        return this;
-    }
-
-    public Value plus(Value value) {
-        for (Color i : Arrays.stream(Color.values()).toList()) {
-            gems.put(i, gems.get(i) + value.gems.get(i));
-        }
-        return this;
-    }
-
-    public Value minus(Value value) {
-        for (Color i : Arrays.stream(Color.values()).toList()) {
-            gems.put(i, gems.get(i) - value.gems.get(i));
-        }
-        return this;
-    }
-
-    public boolean contains(Value value) {
-        for (Color i : Arrays.stream(Color.values()).toList()) {
-            if (gems.containsKey(i)) {
-                if (gems.get(i) < value.getGems().get(i)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+    public abstract boolean contains(Value value);
 }
