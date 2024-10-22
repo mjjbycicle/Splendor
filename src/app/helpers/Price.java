@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * a class that holds amounts of every {@link Color}
+ */
 public class Price extends Value{
 
     private final Map<Color, Integer> gems;

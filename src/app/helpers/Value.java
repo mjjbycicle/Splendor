@@ -2,6 +2,13 @@ package app.helpers;
 
 import java.util.Map;
 
+/**
+ * A class that allows easier arithmetic between {@link Price} and {@link SingleValue}.
+ * <code>
+ *     new Price().with(Color.RED, 2).plus(new SingleValue(Color.BLUE, 3))
+ * </code>
+ * returns a new {@link Price} with 2 {@link Color#RED}, 3 {@link Color#BLUE}
+ */
 public abstract class Value {
     public abstract Map<Color, Integer> getGems();
 

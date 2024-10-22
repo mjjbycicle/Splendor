@@ -3,6 +3,9 @@ package app.helpers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * class that holds an amount of a single {@link Color}
+ */
 public class SingleValue extends Value {
     private final Color color;
     private int num;

@@ -1,5 +1,16 @@
 package app.helpers;
 
+/**
+ * Explicitly names each color for better code readability vs using a map or integers to denote each color.
+ * <code>
+ *     Color.RED == Color.RED
+ * </code>
+ * returns true,
+ * <code>
+ *     Color.RED == Color.BLUE
+ * </code>
+ * returns false
+ */
 public enum Color {
     RED(0),
     BLUE(1),
