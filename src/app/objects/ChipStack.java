@@ -12,12 +12,20 @@ public class ChipStack implements Comparable<ChipStack> {
         this.color = value.getColor();
     }
 
-    public void push(Value chips) {
+    public void add(Value chips) {
         value.plus(chips);
     }
 
-    public boolean canTakeTwo() {
-        return value.getNum() >= 4;
+    public void take(Value chips) {
+        value.minus(chips);
+    }
+
+    public boolean canTake(Value chips) {
+        return value.contains(new SingleValue(color, chips.getGems().get(color)));
+    }
+
+    public SingleValue getValue() {
+        return value;
     }
 
     @Override

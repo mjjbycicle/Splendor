@@ -19,7 +19,7 @@ public class SingleValue extends Value {
     }
 
     @Override
-    public Value with(Color color, int value) {
+    public Value set(Color color, int value) {
         if (color.equals(this.color)) {
             this.num = value;
         }
@@ -46,18 +46,10 @@ public class SingleValue extends Value {
 
     @Override
     public boolean contains(Value value) {
-        for (Color color : Color.values()) {
-            if (value.getGems().containsKey(color)) {
-                if (!(color == this.color) && value.getGems().get(color) != 0) {
-                    return false;
-                } else {
-                    if (num < value.getGems().get(color)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
+       if (!value.getGems().containsKey(color)) {
+           return true;
+       }
+       return value.getGems().get(color) <= num;
     }
 
     public int getNum() {

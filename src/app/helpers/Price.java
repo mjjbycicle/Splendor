@@ -21,7 +21,7 @@ public class Price extends Value{
     }
 
     @Override
-    public Price with(Color color, int value) {
+    public Price set(Color color, int value) {
         gems.put(color, value);
         return this;
     }

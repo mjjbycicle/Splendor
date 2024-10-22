@@ -3,7 +3,6 @@ package app;
 import app.helpers.*;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -25,11 +24,11 @@ public class Cards {
                 int red = sc.nextInt();
                 int black = sc.nextInt();
                 cardPrices.put(id, new Price()
-                        .with(Color.WHITE, white)
-                        .with(Color.BLUE, blue)
-                        .with(Color.GREEN, green)
-                        .with(Color.RED, red)
-                        .with(Color.BLACK, black));
+                        .set(Color.WHITE, white)
+                        .set(Color.BLUE, blue)
+                        .set(Color.GREEN, green)
+                        .set(Color.RED, red)
+                        .set(Color.BLACK, black));
             }
             colorReader = new FileReader("res/cards/card_colors.txt");
             Scanner sc2 = new Scanner(colorReader);

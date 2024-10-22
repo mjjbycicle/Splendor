@@ -40,4 +40,12 @@ public class Card {
     public int getPoints() {
         return points;
     }
+
+    public void setFaceDown(boolean faceDown) {
+        this.faceDown = faceDown;
+    }
+
+    public boolean isFaceDown() {
+        return faceDown;
+    }
 }

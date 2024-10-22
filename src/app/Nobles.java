@@ -23,7 +23,7 @@ public class Nobles {
                 while (in.hasNext()) {
                     int n = in.nextInt();
                     char c = in.next().charAt(0);
-                    noble_prices.get(id).with(
+                    noble_prices.get(id).set(
                             switch (c) {
                                 case 'w' -> Color.WHITE;
                                 case 'u' -> Color.BLUE;
