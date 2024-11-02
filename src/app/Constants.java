@@ -1,6 +1,7 @@
 package app;
 
-import lib.math.Vec2;
+
+import jGameLib.util.math.Vec2;
 
 public class Constants {
     private static final Vec2 MIDDLE_LOCATION = new Vec2(960, 540);
