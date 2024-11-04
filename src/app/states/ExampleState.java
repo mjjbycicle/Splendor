@@ -1,40 +1,25 @@
 package app.states;
 
-import lib.GameCanvas;
-import lib.behaviors.TextStyle;
-import lib.gameobjects.ButtonObject;
-import lib.gameobjects.TextObject;
-import lib.input.MouseEvent;
-import lib.states.AbstractGameState;
-import lib.util.FontLoader;
+import app.Styles;
+import jGameLib.core.GameState;
+import jGameLib.ui2d.input.MouseEvent;
+import jGameLib.ui2d.input.UserInputHandlerComponent;
+import jGameLib.ui2d.input.UserInputSystem;
+import jGameLib.ui2d.rendering.UIEntity;
+import jGameLib.ui2d.rendering.UIRendererRootComponent;
+import jGameLib.ui2d.utils.*;
+import jGameLib.util.files.FontLoader;
+import jGameLib.util.math.Vec2;
 
 import java.awt.*;
 import java.util.Iterator;
 
-public class ExampleState extends AbstractGameState {
+public class ExampleState extends GameState {
     // instantiate all objects
     // text objects, image objects, etc
 
-    // also instantiate next state but don't define it
-    private AbstractGameState nextState;
-
-    //since there are many parameters, separate each into its own line
-    private final TextObject exampleTextObject = (TextObject) new TextObject(
-            "example text", // text to be shown
-            FontLoader.load("font/TitilliumWeb-ExtraLight.ttf").deriveFont(40f), //font type and font size
-            Color.BLACK, // text color
-            TextStyle.TextAlign.ALIGN_CENTER // could also be aligned bottom, aligned left, aligned right, etc.
-
-    ).setPosition(0, 0); // 0, 0 is center; negative is left or up, positive is right or down
-
-    private final ButtonObject exampleButtonObject = (ButtonObject) new ButtonObject(
-            "example button",
-            FontLoader.load("font/TitilliumWeb-ExtraLight.ttf").deriveFont(40f),
-            Color.WHITE, // bg color
-            Color.CYAN, // border color
-            Color.BLACK, // text color
-            true // whether to underline or not when being hovered over
-    ).setPosition(0, 100);
+    // also instantiate the next state but don't define it
+    private GameState nextState;
 
     /**
      * constructor for the state
@@ -42,45 +27,68 @@ public class ExampleState extends AbstractGameState {
      * such as a reference to a game object that is passed between several states
      */
     public ExampleState() {
+        new ButtonEntity(
+                this,
+                "start screen",
+                null,
+                null,
+                Styles.titleText
+        )
+                .withBoundingBox(b -> b.setAbsolutePosition(new Vec2(0, 0)).setRenderOrder(99))
+                .addComponents(
+                        new UIRendererRootComponent()
+                )
+                .cast(ButtonEntity.class)
+                .addClickListener((entity, me) -> {
+                    nextState = new ExampleState();
+                });
 
+        new ButtonEntity(
+                this,
+                "how to play",
+                null,
+                null,
+                Styles.titleText
+        )
+                .withBoundingBox(b -> b.setAbsolutePosition(new Vec2(0, 100)).setRenderOrder(98))
+                .addComponent(
+                        new UIRendererRootComponent()
+                )
+                .cast(ButtonEntity.class)
+                .addClickListener((event, me) -> {
+                    nextState = new ExampleState();
+                });
+
+        new UIEntity(
+                this
+        ).withBoundingBox(
+                        b -> b.setAbsolutePosition(new Vec2(0, 0)).setSize(1920, 1080).setRenderOrder(-100)
+                )
+                .addComponents(
+                        new ImageRendererComponent("BG images/Start Screen.jpg")
+                        ,
+                        new UIRendererRootComponent()
+                )
+                .cast();
     }
 
-    /**
-     * this function is run every game loop to update the visual state of the game window
-     * @param canvas The {@link GameCanvas} on which to draw things
-     */
-    @Override
-    public void draw(GameCanvas canvas) {
-        exampleTextObject.updateAndDraw(canvas); // objects have builtin functions to draw on canvasses
+    protected Iterator<? extends GameState> getStatesAfter() {
+        return iteratorOver(nextState);
     }
 
-    /**
-     * this function is run whenever the cursor is clicked anywhere in the game window
-     * @param me mouse event for the mouse click, you generally won't have to use it
-     */
-    @Override
-    public void onMouseClick(MouseEvent me) {
-        if (exampleButtonObject.isHovered()) {
-            // do stuff
-            // for example set the next state
-            nextState = new ExampleState(); // make it another state progress to a different state
-        }
+    protected void onUpdate() {
     }
 
-    /**
-     * this function called during every game loop to check whether the state is finished
-     */
-    @Override
-    public boolean isFinished() {
-        return nextState != null;
+    protected void onSchedule() {
     }
 
-    /**
-     * this function called when {@link #isFinished()} returns true
-     * you can chain together as many states as you wish
-     * when doing so, separate multiple states with commas
-     */
-    public Iterator<? extends AbstractGameState> getStatesAfter() {
-        return makeIterator(nextState);
+    protected void onExecutionStart() {
+    }
+
+    protected void onExecutionEnd() {
+    }
+
+    protected boolean isFinished() {
+        return false;
     }
 }
