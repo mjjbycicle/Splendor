@@ -2,6 +2,7 @@ package app.objects;
 
 import app.Cards;
 import app.helpers.*;
+import java.awt.image.BufferedImage;
 
 public class Card {
     private boolean faceDown;
@@ -9,6 +10,8 @@ public class Card {
     private final Price price;
     private final SingleValue value;
     private final int points;
+    private final BufferedImage faceUpPic;
+    private final BufferedImage backPic;
 
     public Card(int id) {
         this.id = id;
