@@ -11,10 +11,11 @@ public class Location {
             case BUTTON_3 -> new Vec2(-140, 200);
             case DIALOG_BOX -> new Vec2(-120, 240);
             case ACTIVE_PLAYER_NAME -> new Vec2(0, 200);
-            case TITLE -> new Vec2(0, -100);
             case START_BUTTON -> new Vec2(0, 50);
-            case TITLE_RULES_BUTTON -> new Vec2(200, 300);
+            case TITLE_RULES_BUTTON -> new Vec2(0, 150);
             case TURN_RULES_BUTTON -> new Vec2(200, 300);
+            case ORIGIN -> new Vec2(0, 0);
+            case BACK_BUTTON -> new Vec2(540, 960);
         };
     }
 }
