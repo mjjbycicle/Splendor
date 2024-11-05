@@ -7,6 +7,7 @@ import app.helpers.Value;
 import app.objects.Card;
 import app.objects.CardStack;
 import app.objects.ChipStack;
+import app.visualizers.HandVisualizer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 public class Hand {
     private final Map<Color, ChipStack> chips;
     private final Map<Color, CardStack> cards;
+    private final HandVisualizer visualizer;
 
     public Hand() {
         chips = new HashMap<>();
@@ -22,6 +24,7 @@ public class Hand {
             chips.put(c, new ChipStack(new SingleValue(c, 0)));
             cards.put(c, new CardStack(c));
         }
+        visualizer = new HandVisualizer(chips, cards);
     }
 
     private Price getHandTotal() {
@@ -65,14 +68,14 @@ public class Hand {
         Price total = getHandTotal();
         Price cost = card.getPrice();
         Price diff = total.minus(cost);
-        int sum = 0;
+        int missing = 0;
         for (int n : diff.getGems().values()) {
             if (n < 0) {
-                sum -= n;
+                missing -= n;
             }
         }
         int any = total.getGems().get(Color.ANY);
-        return any >= sum;
+        return any >= missing;
     }
 
     private Price chipsToPay(Card card) {
