@@ -2,6 +2,7 @@ package app;
 
 import app.helpers.*;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +12,11 @@ public class Cards {
     public static Map<Integer, Price> cardPrices = new HashMap<>();
     public static Map<Integer, SingleValue> cardColors = new HashMap<>();
     public static Map<Integer, Integer> cardPoints = new HashMap<>();
-    static {
+    public static void initCards() {
         FileReader priceReader, colorReader, pointsReader;
         try {
-            priceReader = new FileReader("res/cards/card_prices.txt");
-            Scanner sc = new Scanner(priceReader);
-            while (sc.hasNextInt()) {
+            Scanner sc = new Scanner(new File("res/cards/card_prices.txt"));
+            for (int i = 0; i < 90; i++) {
                 int id = sc.nextInt();
                 int white = sc.nextInt();
                 int blue = sc.nextInt();
@@ -30,13 +30,13 @@ public class Cards {
                         .set(Color.RED, red)
                         .set(Color.BLACK, black));
             }
-            colorReader = new FileReader("res/cards/card_colors.txt");
-            Scanner sc2 = new Scanner(colorReader);
-            while (sc2.hasNextInt()) {
-                int start = sc2.nextInt();
-                int end = sc2.nextInt();
-                char color = sc.next().charAt(0);
-                sc.nextLine();
+            sc.nextLine();
+            for (int j = 0; j < 15; j++) {
+                String line = sc.nextLine();
+                Scanner inp = new Scanner(line);
+                int start = inp.nextInt();
+                int end = inp.nextInt();
+                char color = inp.next().charAt(0);
                 for (int i = start; i <= end; i++) {
                     cardColors.put(i, new SingleValue(
                                     switch (color) {
@@ -50,13 +50,12 @@ public class Cards {
                             ));
                 }
             }
-            pointsReader = new FileReader("res/cards/card_points.txt");
-            Scanner sc3 = new Scanner(pointsReader);
-            while (sc3.hasNextInt()) {
-                int id = sc3.nextInt();
-                int points = sc3.nextInt();
+            while (sc.hasNextInt()) {
+                int id = sc.nextInt();
+                int points = sc.nextInt();
                 cardPoints.put(id, points);
             }
+            cardPrices.get(0);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

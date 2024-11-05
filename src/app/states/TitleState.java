@@ -2,10 +2,7 @@ package app.states;
 
 import app.Styles;
 import app.helpers.FinalLocation;
-import app.helpers.Location;
 import jGameLib.core.GameState;
-import jGameLib.ui2d.input.MouseEvent;
-import jGameLib.ui2d.input.UserInputHandlerComponent;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 import jGameLib.ui2d.utils.*;
@@ -36,7 +33,7 @@ public class TitleState extends GameState {
         )
                 .withBoundingBox(
                         b -> {
-                            b.setAbsolutePosition(Location.getLocation(FinalLocation.START_BUTTON));
+                            b.setAbsolutePosition(FinalLocation.START_BUTTON.getLocation());
                             b.setRenderOrder(99);
                             b.setSize(500, 65);
                         }
@@ -57,13 +54,12 @@ public class TitleState extends GameState {
                 Styles.titleText
         ).addClickListener(
                         (entity, me) -> {
-                            System.out.println("clicked");
-                            nextState = new RulesState();
+                            nextState = new RulesState(this, () -> nextState = null);
                         }
                 )
                 .withBoundingBox(
                         b -> {
-                            b.setAbsolutePosition(Location.getLocation(FinalLocation.TITLE_RULES_BUTTON)).setRenderOrder(98);
+                            b.setAbsolutePosition(FinalLocation.TITLE_RULES_BUTTON.getLocation()).setRenderOrder(98);
                             b.setSize(450, 65);
                         }
                 )
