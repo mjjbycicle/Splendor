@@ -1,11 +1,13 @@
 package app.visualizers;
 
-import app.game.Hand;
 import app.helpers.Color;
-import app.objects.Card;
 import app.objects.CardStack;
 import app.objects.ChipStack;
+import jGameLib.core.GameState;
+import jGameLib.ui2d.rendering.UIEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class HandVisualizer {
@@ -17,5 +19,19 @@ public class HandVisualizer {
         this.cards = cards;
     }
 
+    public List<List<UIEntity>> getInactiveChipEntities(int order, GameState state) {
+        List<List<UIEntity>> res = new ArrayList<>();
+        for (ChipStack stack : chips.values()) {
+            res.add(ChipStackVisualizer.getInactiveChipStack(stack, order, state));
+        }
+        return res;
+    }
 
+    public List<List<UIEntity>> getActiveChipEntities(GameState state) {
+        List<List<UIEntity>> res = new ArrayList<>();
+        for (ChipStack stack : chips.values()) {
+            res.add(ChipStackVisualizer.getActiveChipStack(stack, state));
+        }
+        return res;
+    }
 }

@@ -7,24 +7,29 @@ import app.helpers.Value;
 import app.objects.Card;
 import app.objects.CardStack;
 import app.objects.ChipStack;
+import app.objects.Noble;
 import app.visualizers.HandVisualizer;
+import jGameLib.core.GameState;
+import jGameLib.ui2d.rendering.UIEntity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Hand {
-    private final Map<Color, ChipStack> chips;
-    private final Map<Color, CardStack> cards;
-    private final HandVisualizer visualizer;
+    final Map<Color, ChipStack> chips;
+    final Map<Color, CardStack> cards;
+    final List<Noble> nobles;
 
     public Hand() {
         chips = new HashMap<>();
         cards = new HashMap<>();
+        nobles = new ArrayList<>();
         for (Color c : Color.values()) {
             chips.put(c, new ChipStack(new SingleValue(c, 0)));
             cards.put(c, new CardStack(c));
         }
-        visualizer = new HandVisualizer(chips, cards);
     }
 
     private Price getHandTotal() {
@@ -104,5 +109,21 @@ public class Hand {
 
     public boolean overTenChips() {
         return getTotalChips() > 10;
+    }
+
+    public List<List<UIEntity>> getInactiveHandEntities(int order, GameState state, HandVisualizer visualizer) {
+        return visualizer.getInactiveChipEntities(order, state);
+    }
+
+    public List<List<UIEntity>> getActiveHandEntities(GameState state, HandVisualizer visualizer) {
+        return visualizer.getActiveChipEntities(state);
+    }
+
+    public boolean canTakeNoble(Noble noble) {
+        return getCardTotal().contains(noble.getPrice());
+    }
+
+    public void takeNoble(Noble noble) {
+        nobles.add(noble);
     }
 }
