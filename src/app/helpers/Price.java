@@ -32,8 +32,12 @@ public class Price extends Value{
     @Override
     public Price plus(Value value) {
         for (Color i : Arrays.stream(Color.values()).toList()) {
-            if (gems.containsKey(i))
-                gems.put(i, gems.get(i) + value.getGems().get(i));
+            if (value.getGems().containsKey(i))
+                if (gems.containsKey(i))
+                    gems.put(i, gems.get(i) + value.getGems().get(i));
+                else {
+                    gems.put(i, value.getGems().get(i));
+                }
         }
         return this;
     }

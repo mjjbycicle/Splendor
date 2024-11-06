@@ -14,9 +14,9 @@ public class Card {
         this.id = id;
         if (id != -1) {
             this.faceDown = false;
+            points = Cards.cardPoints.get(id);
             price = Cards.cardPrices.get(id);
             value = Cards.cardColors.get(id);
-            points = Cards.cardPoints.get(id);
         } else {
             this.faceDown = false;
             price = new Price();
