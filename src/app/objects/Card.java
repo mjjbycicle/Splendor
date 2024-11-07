@@ -2,6 +2,8 @@ package app.objects;
 
 import app.Cards;
 import app.helpers.*;
+import app.visualizers.CardVisualizer;
+import jGameLib.ui2d.utils.ImageRendererComponent;
 
 public class Card {
     private boolean faceDown;
@@ -9,6 +11,7 @@ public class Card {
     private final Price price;
     private final SingleValue value;
     private final int points;
+    private final CardVisualizer visualizer;
 
     public Card(int id) {
         this.id = id;
@@ -23,6 +26,10 @@ public class Card {
             value = new SingleValue(Color.ANY, 0);
             points = 0;
         }
+        visualizer = new CardVisualizer(
+                id,
+                this::isFaceDown
+        );
     }
 
     public Price getPrice() {
@@ -47,5 +54,9 @@ public class Card {
 
     public boolean isFaceDown() {
         return faceDown;
+    }
+
+    public ImageRendererComponent getImage() {
+        return visualizer.getImage();
     }
 }
