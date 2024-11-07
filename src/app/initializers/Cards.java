@@ -13,7 +13,7 @@ public class Cards {
     public static Map<Integer, Price> cardPrices = new HashMap<>();
     public static Map<Integer, SingleValue> cardColors = new HashMap<>();
     public static Map<Integer, Integer> cardPoints = new HashMap<>();
-    public static Map<Integer, Integer> tiers;
+    public static Map<Integer, Integer> tiers = new HashMap<>();
     static {
         FileReader priceReader, colorReader, pointsReader;
         try {

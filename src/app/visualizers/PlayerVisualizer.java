@@ -26,7 +26,14 @@ public class PlayerVisualizer {
     private TextRendererComponent getInactiveNameComponent() {
         return new TextRendererComponent(
                 "player " + id,
-                Styles.titleText
+                Styles.inactiveNameText
+        );
+    }
+
+    private TextRendererComponent getActiveNameComponent() {
+        return new TextRendererComponent(
+                "player " + id,
+                Styles.activeNameText
         );
     }
 
@@ -52,7 +59,7 @@ public class PlayerVisualizer {
                         }
                 ).addComponents(
                         new UIRendererRootComponent(),
-                        getInactiveNameComponent()
+                        getActiveNameComponent()
                 ).cast();
     }
 }

@@ -17,7 +17,7 @@ public enum ObjectLocations {
             case INACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(500, -200);
             default -> throw new Exception("Attempting to get inactive location of an active location");
         }
-        baseLocation = baseLocation.plus(0, order * 300);
+        baseLocation = baseLocation.plus(0, order * 325);
         baseLocation = baseLocation.plus(25 * color.getNumVal(), 0);
         baseLocation = baseLocation.plus(0, 25 * index);
         return baseLocation;
@@ -26,8 +26,8 @@ public enum ObjectLocations {
     public Vec2 getActiveLocation(Color color, int index) throws Exception {
         Vec2 baseLocation;
         switch (this) {
-            case ACTIVE_PLAYER_CARDS -> baseLocation = new Vec2(-200, -200);
-            case ACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(-200, 400);
+            case ACTIVE_PLAYER_CARDS -> baseLocation = new Vec2(0, -200);
+            case ACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(0, 400);
             default -> throw new Exception("Attempting to get active location of an inactive location");
         }
         baseLocation = baseLocation.plus(25 * color.getNumVal(), 0);
@@ -39,11 +39,11 @@ public enum ObjectLocations {
         Vec2 baseLocation = new Vec2(0, 0);
         switch (this) {
             case INACTIVE_NOBLE_LOCATIONS -> baseLocation = new Vec2(500, -150);
-            case ACTIVE_NOBLE_LOCATIONS -> baseLocation = new Vec2(-200, 450);
+            case ACTIVE_NOBLE_LOCATIONS -> baseLocation = new Vec2(0, 450);
             default -> throw new Exception("Attempting to get noble location of a non noble location");
         }
         if (this == INACTIVE_NOBLE_LOCATIONS) {
-            baseLocation = baseLocation.plus(0, order * 300);
+            baseLocation = baseLocation.plus(0, order * 325);
         }
         baseLocation = baseLocation.plus(25 * index, 0);
         return baseLocation;

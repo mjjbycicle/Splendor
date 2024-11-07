@@ -12,16 +12,18 @@ public class Styles {
         return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue(), i);
     }
 
-    public static TextStyle titleText =
-            new TextStyleBuilder()
+    private static TextStyleBuilder builder = new TextStyleBuilder()
                     .setFont(
                             FontLoader.load("font/Copperplate-Gothic-Std-29-BC.ttf")
                     ).setAlignment(
                             TextStyle.TextAlign.CENTER
                     ).setColor(
                             new Color(0xf3d318)
-                    ).setFontSize(
-                            80f
-                    )
-                    .get();
+                    );
+
+    public static TextStyle titleText = builder.setFontSize(80f).get();
+
+    public static TextStyle inactiveNameText = builder.setFontSize(45f).get();
+
+    public static TextStyle activeNameText = builder.setFontSize(60f).get();
 }

@@ -9,11 +9,11 @@ public enum NameLocations {
     public Vec2 getLocation(int order) {
         Vec2 baseLocation = new Vec2(0, 0);
         switch (this) {
-            case INACTIVE_PLAYER_NAME -> baseLocation = new Vec2(500, -100);
-            case ACTIVE_PLAYER_NAME -> baseLocation = new Vec2(-200, 500);
+            case INACTIVE_PLAYER_NAME -> baseLocation = new Vec2(700, -175);
+            case ACTIVE_PLAYER_NAME -> baseLocation = new Vec2(0, 500);
         }
         if (this == INACTIVE_PLAYER_NAME) {
-            baseLocation = baseLocation.plus(0, 300 * order);
+            baseLocation = baseLocation.plus(0, 325 * order);
         }
         return baseLocation;
     }
