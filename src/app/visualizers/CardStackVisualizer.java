@@ -38,7 +38,7 @@ public class CardStackVisualizer {
         return res;
     }
 
-    public static List<UIEntity> getActive(CardStack stack, int order, GameState state) {
+    public static List<UIEntity> getActiveCardStack(CardStack stack, GameState state) {
         List<UIEntity> res = new ArrayList<>();
         List<Card> cards = stack.getCards();
         for (int i = 0; i < cards.size(); i++) {

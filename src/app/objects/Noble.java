@@ -2,6 +2,8 @@ package app.objects;
 
 import app.Nobles;
 import app.helpers.Price;
+import app.visualizers.NobleVisualizer;
+import jGameLib.ui2d.utils.ImageRendererComponent;
 
 public class Noble {
     private final Price price;
@@ -14,5 +16,9 @@ public class Noble {
 
     public Price getPrice() {
         return price;
+    }
+
+    public ImageRendererComponent getImage() {
+        return NobleVisualizer.getImage(id);
     }
 }

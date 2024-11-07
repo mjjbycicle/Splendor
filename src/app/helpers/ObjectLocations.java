@@ -17,15 +17,9 @@ public enum ObjectLocations {
             case ACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(-200, 400);
         }
         if (this == INACTIVE_PLAYER_CARDS || this == INACTIVE_PLAYER_CHIPS)
-            for (int x = 0; x < order; x++) {
-                baseLocation = baseLocation.plus(0, 300);
-            }
-        for (int x = 0; x < color.getNumVal(); x++) {
-            baseLocation = baseLocation.plus(25, 0);
-        }
-        for (int x = 0; x < index; x++) {
-            baseLocation = baseLocation.plus(0, 25);
-        }
+            baseLocation = baseLocation.plus(0, order * 300);
+        baseLocation = baseLocation.plus(25 * color.getNumVal(), 0);
+        baseLocation = baseLocation.plus(0, 25 * index);
         return baseLocation;
     }
 }
