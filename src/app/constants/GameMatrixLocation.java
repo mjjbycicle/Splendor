@@ -1,4 +1,4 @@
-package app.helpers;
+package app.constants;
 
 import jGameLib.util.math.Vec2;
 

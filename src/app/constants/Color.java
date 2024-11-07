@@ -1,4 +1,4 @@
-package app.helpers;
+package app.constants;
 
 /**
  * Explicitly names each color for better code readability vs using a map or integers to denote each color.

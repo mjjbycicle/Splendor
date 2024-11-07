@@ -1,3 +1,4 @@
+import app.states.TestState;
 import app.states.TitleState;
 import jGameLib.core.StateMachine;
 import jGameLib.ui2d.GameWindow;
@@ -11,6 +12,6 @@ public class Main {
 
         StateMachine.globalInstance.addSystem(new UserInputSystem(a.canvas));
         StateMachine.globalInstance.addSystem(new UIRendererSystem(a.canvas));
-        StateMachine.globalInstance.run(new TitleState());
+        StateMachine.globalInstance.run(new TestState());
     }
 }

@@ -1,6 +1,6 @@
 package app.objects;
 
-import app.Nobles;
+import app.initializers.Nobles;
 import app.helpers.Price;
 import app.visualizers.NobleVisualizer;
 import jGameLib.ui2d.utils.ImageRendererComponent;

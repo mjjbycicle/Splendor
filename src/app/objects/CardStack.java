@@ -1,6 +1,6 @@
 package app.objects;
 
-import app.helpers.Color;
+import app.constants.Color;
 import app.helpers.SingleValue;
 import org.jetbrains.annotations.NotNull;
 

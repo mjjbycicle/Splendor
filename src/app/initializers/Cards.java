@@ -1,5 +1,6 @@
-package app;
+package app.initializers;
 
+import app.constants.Color;
 import app.helpers.*;
 
 import java.io.File;
@@ -12,7 +13,8 @@ public class Cards {
     public static Map<Integer, Price> cardPrices = new HashMap<>();
     public static Map<Integer, SingleValue> cardColors = new HashMap<>();
     public static Map<Integer, Integer> cardPoints = new HashMap<>();
-    public static void initCards() {
+    public static Map<Integer, Integer> tiers;
+    static {
         FileReader priceReader, colorReader, pointsReader;
         try {
             Scanner sc = new Scanner(new File("res/cards/card_prices.txt"));
@@ -58,6 +60,15 @@ public class Cards {
             cardPrices.get(0);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+        for (int i = 0; i < 40; i++) {
+            tiers.put(i, 1);
+        }
+        for (int i = 40; i < 70; i++) {
+            tiers.put(i, 2);
+        }
+        for (int i = 70; i < 90; i++) {
+            tiers.put(i, 3);
         }
     }
 }

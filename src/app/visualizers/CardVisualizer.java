@@ -8,12 +8,12 @@ public class CardVisualizer {
     private final ImageRendererComponent faceUpImage, faceDownImage;
     private final BooleanSupplier faceDown;
 
-    public CardVisualizer(int id, BooleanSupplier faceDown) {
+    public CardVisualizer(int id, int tier, BooleanSupplier faceDown) {
         faceUpImage = new ImageRendererComponent(
                 "cards/card face pics/CARD_" + id + ".png"
         );
         faceDownImage = new ImageRendererComponent(
-                "card/card face pics/FACE_DOWN.png"
+                "card/card face pics/FACE_DOWN_TIER_" + tier + ".png"
         );
         this.faceDown = faceDown;
     }

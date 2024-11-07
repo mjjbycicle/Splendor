@@ -1,6 +1,7 @@
 package app.objects;
 
-import app.Cards;
+import app.constants.Color;
+import app.initializers.Cards;
 import app.helpers.*;
 import app.visualizers.CardVisualizer;
 import jGameLib.ui2d.utils.ImageRendererComponent;
@@ -28,6 +29,7 @@ public class Card {
         }
         visualizer = new CardVisualizer(
                 id,
+                Cards.tiers.get(id),
                 this::isFaceDown
         );
     }

@@ -1,15 +1,15 @@
-package app;
+package app.constants;
 
 
 import jGameLib.ui2d.utils.TextStyle;
 import jGameLib.ui2d.utils.TextStyleBuilder;
 import jGameLib.util.files.FontLoader;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Styles {
-    public static Color setAlpha(Color color, int i) {
-        return new Color(color.getRed(), color.getGreen(), color.getBlue(), i);
+    public static java.awt.Color setAlpha(java.awt.Color color, int i) {
+        return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue(), i);
     }
 
     public static TextStyle titleText =

@@ -1,8 +1,7 @@
-package app;
+package app.initializers;
 
-import app.helpers.Color;
+import app.constants.Color;
 import app.helpers.Price;
-import app.helpers.SingleValue;
 
 import java.io.FileReader;
 import java.util.Map;

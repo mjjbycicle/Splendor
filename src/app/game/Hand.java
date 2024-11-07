@@ -1,6 +1,6 @@
 package app.game;
 
-import app.helpers.Color;
+import app.constants.Color;
 import app.helpers.Price;
 import app.helpers.SingleValue;
 import app.helpers.Value;
@@ -10,7 +10,6 @@ import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.HandVisualizer;
 import jGameLib.core.GameState;
-import jGameLib.ui2d.rendering.UIEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,14 +108,6 @@ public class Hand {
 
     public boolean overTenChips() {
         return getTotalChips() > 10;
-    }
-
-    public List<List<UIEntity>> getInactiveHandEntities(int order, GameState state, HandVisualizer visualizer) {
-        return visualizer.getInactiveChipEntities(order, state);
-    }
-
-    public List<List<UIEntity>> getActiveHandEntities(GameState state, HandVisualizer visualizer) {
-        return visualizer.getActiveChipEntities(state);
     }
 
     public boolean canTakeNoble(Noble noble) {

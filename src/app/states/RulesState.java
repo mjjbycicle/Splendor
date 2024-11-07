@@ -1,7 +1,7 @@
 package app.states;
 
-import app.Styles;
-import app.helpers.FinalLocation;
+import app.constants.Styles;
+import app.constants.FinalLocation;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;

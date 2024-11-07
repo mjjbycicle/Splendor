@@ -1,60 +1,57 @@
 package app.visualizers;
 
-import app.helpers.ObjectLocations;
+import app.constants.ObjectLocations;
 import app.objects.ChipStack;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ChipStackVisualizer {
-    public static List<UIEntity> getInactiveChipStack(ChipStack stack, int order, GameState state) {
-        List<UIEntity> res = new ArrayList<>();
+    public static void addInactiveChipStack(ChipStack stack, int order, GameState state) {
         for (int i = 0; i < stack.getValue().getNum(); i++) {
             int finalI = i;
-            res.add(
-                    new UIEntity(state)
-                            .withBoundingBox(
-                                    b -> {
-                                        b.setSize(25, 25);
-                                        b.setAbsolutePosition(
-                                                ObjectLocations.INACTIVE_PLAYER_CHIPS.getLocation(order, stack.getValue().getColor(), finalI)
-                                        );
-                                        b.setRenderOrder(100 - finalI);
-                                    }
-                            )
-                            .addComponents(
-                                    new UIRendererRootComponent(),
-                                    ChipVisualizer.getChip(stack.getValue().getColor())
-                            ).cast()
-            );
+            new UIEntity(state)
+                    .withBoundingBox(
+                            b -> {
+                                b.setSize(25, 25);
+                                try {
+                                    b.setAbsolutePosition(
+                                            ObjectLocations.INACTIVE_PLAYER_CHIPS.getInactiveLocation(order, stack.getValue().getColor(), finalI)
+                                    );
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                                b.setRenderOrder(100 - finalI);
+                            }
+                    )
+                    .addComponents(
+                            new UIRendererRootComponent(),
+                            ChipVisualizer.getChip(stack.getValue().getColor())
+                    ).cast();
         }
-        return res;
     }
 
-    public static List<UIEntity> getActiveChipStack(ChipStack stack, GameState state) {
-        List<UIEntity> res = new ArrayList<>();
+    public static void addActiveChipStack(ChipStack stack, GameState state) {
         for (int i = 0; i < stack.getValue().getNum(); i++) {
             int finalI = i;
-            res.add(
-                    new UIEntity(state)
-                            .withBoundingBox(
-                                    b -> {
-                                        b.setSize(40, 40);
-                                        b.setAbsolutePosition(
-                                                ObjectLocations.ACTIVE_PLAYER_CHIPS.getLocation(0, stack.getValue().getColor(), finalI)
-                                        );
-                                        b.setRenderOrder(100 - finalI);
-                                    }
-                            )
-                            .addComponents(
-                                    new UIRendererRootComponent(),
-                                    ChipVisualizer.getChip(stack.getValue().getColor())
-                            ).cast()
-            );
+            new UIEntity(state)
+                    .withBoundingBox(
+                            b -> {
+                                b.setSize(40, 40);
+                                try {
+                                    b.setAbsolutePosition(
+                                            ObjectLocations.ACTIVE_PLAYER_CHIPS.getActiveLocation(stack.getValue().getColor(), finalI)
+                                    );
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                                b.setRenderOrder(100 - finalI);
+                            }
+                    )
+                    .addComponents(
+                            new UIRendererRootComponent(),
+                            ChipVisualizer.getChip(stack.getValue().getColor())
+                    ).cast();
         }
-        return res;
     }
 }
