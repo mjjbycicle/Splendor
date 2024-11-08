@@ -61,4 +61,5 @@ public class Card {
     public ImageRendererComponent getImage() {
         return visualizer.getImage();
     }
+
 }

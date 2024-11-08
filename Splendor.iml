@@ -18,5 +18,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="JGameLib" level="project" />
+    <orderEntry type="library" name="JGameLib1" level="project" />
   </component>
 </module>
