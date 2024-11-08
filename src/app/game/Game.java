@@ -1,0 +1,56 @@
+package app.game;
+
+import app.constants.Color;
+import app.helpers.Price;
+import app.helpers.SingleValue;
+import app.objects.CardDeck;
+import app.objects.ChipStack;
+import app.objects.Noble;
+import app.visualizers.GameVisualizer;
+
+import java.util.*;
+
+public class Game {
+    private final List<Player> players;
+    private final List<CardDeck> decks;
+    private final Set<ChipStack> chipStacks;
+    private final List<Noble> nobles;
+    private final GameVisualizer visualizer;
+
+    public Game() {
+        players = Arrays.asList(
+                new Player(0),
+                new Player(1),
+                new Player(2),
+                new Player(3)
+        );
+        decks = Arrays.asList(
+                new CardDeck(1),
+                new CardDeck(2),
+                new CardDeck(3)
+        );
+        nobles = new ArrayList<>();
+        chipStacks = new HashSet<>(
+                Arrays.asList(
+                        new ChipStack(new SingleValue(Color.RED, 7)),
+                        new ChipStack(new SingleValue(Color.BLUE, 7)),
+                        new ChipStack(new SingleValue(Color.GREEN, 7)),
+                        new ChipStack(new SingleValue(Color.BLACK, 7)),
+                        new ChipStack(new SingleValue(Color.WHITE, 7)),
+                        new ChipStack(new SingleValue(Color.ANY, 5))
+                )
+        );
+        addNobles();
+    }
+
+    private void addNobles() {
+        Set<Integer> nobleIDs = new HashSet<>();
+        while (nobleIDs.size() < 5) {
+            int x = (int) (Math.random() * 10);
+            nobles.add(new Noble(x));
+            nobleIDs.add(
+                    x
+            );
+        }
+    }
+}
