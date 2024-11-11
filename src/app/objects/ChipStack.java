@@ -21,8 +21,14 @@ public class ChipStack implements Comparable<ChipStack> {
         value.minus(chips);
     }
 
-    public boolean canTake(Value chips) {
-        return value.contains(new SingleValue(color, chips.getGems().get(color)));
+    public void takeOne() {
+        value.minus(
+                new SingleValue(color, 1)
+        );
+    }
+
+    public boolean canTakeTwo() {
+        return value.getNum() >= 4;
     }
 
     public SingleValue getValue() {

@@ -7,13 +7,14 @@ import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.GameVisualizer;
+import jGameLib.core.GameState;
 
 import java.util.*;
 
 public class Game {
     private final List<Player> players;
     private final List<CardDeck> decks;
-    private final Set<ChipStack> chipStacks;
+    private final List<ChipStack> chipStacks;
     private final List<Noble> nobles;
     private final GameVisualizer visualizer;
 
@@ -30,17 +31,16 @@ public class Game {
                 new CardDeck(3)
         );
         nobles = new ArrayList<>();
-        chipStacks = new HashSet<>(
-                Arrays.asList(
+        chipStacks = Arrays.asList(
                         new ChipStack(new SingleValue(Color.RED, 7)),
                         new ChipStack(new SingleValue(Color.BLUE, 7)),
                         new ChipStack(new SingleValue(Color.GREEN, 7)),
                         new ChipStack(new SingleValue(Color.BLACK, 7)),
                         new ChipStack(new SingleValue(Color.WHITE, 7)),
                         new ChipStack(new SingleValue(Color.ANY, 5))
-                )
-        );
+                );
         addNobles();
+        visualizer = new GameVisualizer(players, decks, chipStacks, nobles);
     }
 
     private void addNobles() {
@@ -48,9 +48,11 @@ public class Game {
         while (nobleIDs.size() < 5) {
             int x = (int) (Math.random() * 10);
             nobles.add(new Noble(x));
-            nobleIDs.add(
-                    x
-            );
+            nobleIDs.add(x);
         }
+    }
+
+    public void addGame(GameState state) {
+        visualizer.addAllEntities(state);
     }
 }

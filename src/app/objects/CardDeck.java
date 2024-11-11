@@ -23,6 +23,7 @@ public class CardDeck {
     }
 
     public Card drawTopCard() {
+        if (cards.isEmpty()) return null;
         Card res = cards.getFirst();
         cards.removeFirst();
         return res;

@@ -24,7 +24,7 @@ public class CardDeckVisualizer {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
-                            b.setWidth(75);
+                            b.setSize(75, 100);
                         }
                 )
                 .addComponents(

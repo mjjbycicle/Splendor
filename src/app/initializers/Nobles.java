@@ -4,15 +4,16 @@ import app.constants.Color;
 import app.helpers.Price;
 
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Nobles {
-    public static Map<Integer, Price> noble_prices;
+    public static Map<Integer, Price> noble_prices = new HashMap<>();
     static {
         FileReader priceReader;
         try {
-            priceReader = new FileReader("res/cards/card_prices.txt");
+            priceReader = new FileReader("res/nobles/noble_prices.txt");
             Scanner sc = new Scanner(priceReader);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();

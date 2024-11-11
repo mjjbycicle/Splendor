@@ -10,7 +10,8 @@ public enum ObjectLocations {
     INACTIVE_NOBLE_LOCATIONS,
     ACTIVE_NOBLE_LOCATIONS,
     GAME_CARD_MATRIX,
-    GAME_NOBLES;
+    GAME_NOBLES,
+    GAME_CHIPS;
 
     public Vec2 getInactiveLocation(int order, Color color, int index) throws Exception {
         Vec2 baseLocation;
@@ -56,6 +57,18 @@ public enum ObjectLocations {
         if (this != GAME_CARD_MATRIX) throw new Exception("Attempting to get matrix location of a non matrix location");
         Vec2 baseLocation = new Vec2(-300, -300);
         baseLocation = baseLocation.plus(j * 100, i * 200);
+        return baseLocation;
+    }
+
+    public Vec2 getChipLocation(Color color, int index) throws Exception {
+        Vec2 baseLocation;
+        if (this == ObjectLocations.GAME_CHIPS) {
+            baseLocation = new Vec2(-400, 400);
+        } else {
+            throw new Exception("Attempting to get game chip location");
+        }
+        baseLocation = baseLocation.plus(25 * color.getNumVal(), 0);
+        baseLocation = baseLocation.plus(0, 25 * index);
         return baseLocation;
     }
 }
