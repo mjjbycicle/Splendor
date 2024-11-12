@@ -5,6 +5,8 @@ import app.game.Player;
 import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
+import jGameLib.animation.Animation;
+import jGameLib.core.Entity;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
@@ -21,6 +23,7 @@ public class GameVisualizer {
     public GameVisualizer(List<Player> players, List<CardDeck> decks, List<ChipStack> chips, List<Noble> nobles) {
         this.players = players;
         this.nobles = nobles;
+
         cards = new GameCardMatrixVisualizer(decks);
         this.chips = new GameChipStacksVisualizer(chips);
     }

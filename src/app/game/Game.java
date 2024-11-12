@@ -27,9 +27,9 @@ public class Game {
                 new Player(3)
         );
         decks = Arrays.asList(
-                new CardDeck(1),
+                new CardDeck(3),
                 new CardDeck(2),
-                new CardDeck(3)
+                new CardDeck(1)
         );
         nobles = new ArrayList<>();
         chipStacks = Arrays.asList(
