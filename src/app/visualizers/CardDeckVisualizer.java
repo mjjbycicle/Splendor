@@ -1,6 +1,7 @@
 package app.visualizers;
 
 import app.constants.ObjectLocations;
+import app.constants.Sizes;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
@@ -24,7 +25,7 @@ public class CardDeckVisualizer {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
-                            b.setSize(75, 100);
+                            b.setSize(Sizes.ACTIVE_CARD.location);
                         }
                 )
                 .addComponents(

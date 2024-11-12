@@ -2,6 +2,7 @@ package app.visualizers;
 
 import app.constants.Color;
 import app.constants.ObjectLocations;
+import app.constants.Sizes;
 import app.objects.CardStack;
 import app.objects.ChipStack;
 import app.objects.Noble;
@@ -53,6 +54,7 @@ public class HandVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
+                                b.setSize(Sizes.NOBLE.location);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.INACTIVE_NOBLE_LOCATIONS.getNobleLocation(order, finalI)

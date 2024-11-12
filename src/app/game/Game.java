@@ -8,6 +8,7 @@ import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.GameVisualizer;
 import jGameLib.core.GameState;
+import jGameLib.util.Pair;
 
 import java.util.*;
 
@@ -47,12 +48,20 @@ public class Game {
         Set<Integer> nobleIDs = new HashSet<>();
         while (nobleIDs.size() < 5) {
             int x = (int) (Math.random() * 10);
-            nobles.add(new Noble(x));
             nobleIDs.add(x);
         }
+        for (int i : nobleIDs) nobles.add(new Noble(i));
     }
 
     public void addGame(GameState state) {
         visualizer.addAllEntities(state);
+    }
+
+    public Pair<Integer, Integer> getClickedCard() {
+        return visualizer.getCardClicked();
+    }
+
+    public int getClickedChipStack() {
+        return visualizer.getChipStackClicked();
     }
 }

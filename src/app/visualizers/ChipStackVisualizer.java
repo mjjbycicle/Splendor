@@ -1,6 +1,7 @@
 package app.visualizers;
 
 import app.constants.ObjectLocations;
+import app.constants.Sizes;
 import app.objects.ChipStack;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.input.MouseEvent;
@@ -16,7 +17,7 @@ public class ChipStackVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(25, 25);
+                                b.setSize(Sizes.INACTIVE_CHIP.location);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.INACTIVE_PLAYER_CHIPS.getInactiveLocation(order, stack.getValue().getColor(), finalI)
@@ -40,7 +41,7 @@ public class ChipStackVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(40, 40);
+                                b.setSize(Sizes.ACTIVE_CHIP.location);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.ACTIVE_PLAYER_CHIPS.getActiveLocation(stack.getValue().getColor(), finalI)

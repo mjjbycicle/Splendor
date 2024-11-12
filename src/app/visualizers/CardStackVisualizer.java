@@ -1,6 +1,7 @@
 package app.visualizers;
 
 import app.constants.ObjectLocations;
+import app.constants.Sizes;
 import app.objects.Card;
 import app.objects.CardStack;
 import jGameLib.animation.AnimationComponent;
@@ -19,7 +20,7 @@ public class CardStackVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(50, 75);
+                                b.setSize(Sizes.INACTIVE_CARD.location);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.INACTIVE_PLAYER_CARDS.getInactiveLocation(order, stack.getColor(), finalI)
@@ -44,7 +45,7 @@ public class CardStackVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(75, 100);
+                                b.setSize(Sizes.ACTIVE_CARD.location);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.ACTIVE_PLAYER_CARDS.getActiveLocation(stack.getColor(), finalI)
