@@ -2,6 +2,7 @@ package app.visualizers;
 
 import app.objects.ChipStack;
 import jGameLib.core.GameState;
+import jGameLib.ui2d.rendering.UIEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class GameChipStacksVisualizer {
     }
 
     public void addChipStacks(GameState state) {
+        System.out.println("added chips");
         for (int i = 0; i < chipStacks.size(); i++) {
             int finalI = i;
             ChipStackVisualizer.addGameChipStack(

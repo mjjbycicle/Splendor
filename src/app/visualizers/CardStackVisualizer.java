@@ -20,7 +20,7 @@ public class CardStackVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(Sizes.INACTIVE_CARD.location);
+                                b.setSize(Sizes.INACTIVE_CARD.size);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.INACTIVE_PLAYER_CARDS.getInactiveLocation(order, stack.getColor(), finalI)
@@ -45,7 +45,7 @@ public class CardStackVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(Sizes.ACTIVE_CARD.location);
+                                b.setSize(Sizes.ACTIVE_CARD.size);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.ACTIVE_PLAYER_CARDS.getActiveLocation(stack.getColor(), finalI)

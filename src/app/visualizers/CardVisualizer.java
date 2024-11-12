@@ -13,7 +13,7 @@ public class CardVisualizer {
                 "cards/card face pics/CARD_" + id + ".png"
         );
         faceDownImage = new ImageRendererComponent(
-                "card/card face pics/FACE_DOWN_TIER_" + tier + ".png"
+                "cards/face down pics/TIER_" + tier + ".png"
         );
         this.faceDown = faceDown;
     }
