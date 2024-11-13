@@ -54,7 +54,7 @@ public class HandVisualizer {
             new UIEntity(state)
                     .withBoundingBox(
                             b -> {
-                                b.setSize(Sizes.NOBLE.location);
+                                b.setSize(Sizes.NOBLE.size);
                                 try {
                                     b.setAbsolutePosition(
                                             ObjectLocations.INACTIVE_NOBLE_LOCATIONS.getNobleLocation(order, finalI)

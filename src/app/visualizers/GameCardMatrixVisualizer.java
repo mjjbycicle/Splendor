@@ -27,7 +27,6 @@ public class GameCardMatrixVisualizer {
     private final List<List<Boolean>> cardsClicked;
     private final List<List<Card>> cardMatrix;
     private final List<CardDeck> decks;
-    private boolean isOneAnimating = false;
 
     public GameCardMatrixVisualizer(List<CardDeck> decks) {
         this.decks = decks;
@@ -65,7 +64,7 @@ public class GameCardMatrixVisualizer {
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
-                                    b.setSize(Sizes.ACTIVE_CARD.location);
+                                    b.setSize(Sizes.ACTIVE_CARD.size);
                                 }
                         )
                         .addComponents(
@@ -74,6 +73,7 @@ public class GameCardMatrixVisualizer {
                                         new RoundedRectRendererComponent(10, new Color(100, 100, 100, 100), new Color(0, 0, 0, 0)) :
                                         cardMatrix.get(i).get(j).getImage(),
                                 new HoverDetectionComponent(),
+                                new AnimationComponent(),
                                 new UserInputHandlerComponent() {
 
                                     @Override
@@ -91,85 +91,85 @@ public class GameCardMatrixVisualizer {
 
                                     @Override
                                     protected void update(UserInputState state) {
-                                        if (this.getEntity().getComponent(HoverDetectionComponent.class).contains(state.getMousePosition())) {
-                                            if (!getEntity().getComponent(AnimationComponent.class).isAnimating()
-                                                    && getEntity().cast(UIEntity.class).getBoundingBox().getSize().x <= 200
-                                                    && !isOneAnimating) {
-                                                isOneAnimating = true;
-                                                this.getEntity().getComponent(AnimationComponent.class).applyAnimation(
-                                                        new Animation<Entity>(10) {
-                                                            private Vec2 prevSize;
-                                                            private Vec2 sizeDiff;
+                                        if (this.getEntity().getComponent(HoverDetectionComponent.class).contains(state.getMousePosition())
+                                                && !this.getEntity().getComponent(AnimationComponent.class).isAnimating()) {
+                                            this.getEntity().getComponent(AnimationComponent.class).applyAnimation(
+                                                    new Animation<Entity>(10) {
+                                                        private Vec2 prevSize, sizeDiff;
 
-                                                            @Override
-                                                            public void onAnimationStart(Entity entity) {
-                                                                prevSize = getEntity().cast(UIEntity.class).getBoundingBox().getSize();
-                                                                sizeDiff = new Vec2(200, 300).minus(prevSize);
-                                                                getEntity().cast(UIEntity.class).withBoundingBox(
-                                                                        b -> b.setRenderOrder(100)
-                                                                );
-                                                            }
-
-                                                            @Override
-                                                            public void updateAnimation(Entity entity, double v) {
-                                                                getEntity().cast(UIEntity.class).withBoundingBox(
-                                                                        b -> {
-                                                                            b.setSize(prevSize.x + sizeDiff.x * v, prevSize.y + sizeDiff.y * v);
-                                                                        }
-                                                                );
-                                                            }
-
-                                                            @Override
-                                                            public void onAnimationEnd(Entity entity) {
-                                                                getEntity().cast(UIEntity.class).withBoundingBox(
-                                                                        b -> b.setSize(200, 300)
-                                                                );
-                                                            }
+                                                        @Override
+                                                        public void onAnimationStart(Entity entity) {
+                                                            prevSize = entity.cast(UIEntity.class).getBoundingBox().getSize();
+                                                            sizeDiff = new Vec2(200, 300).minus(prevSize);
+                                                            entity.cast(UIEntity.class).withBoundingBox(
+                                                                    b -> b.setRenderOrder(100)
+                                                            );
                                                         }
-                                                );
-                                            }
-                                        } else {
-                                            if (!getEntity().getComponent(AnimationComponent.class).isAnimating()) {
-                                                this.getEntity().getComponent(AnimationComponent.class).applyAnimation(
-                                                        new Animation<Entity>(10) {
-                                                            private Vec2 prevSize;
-                                                            private Vec2 sizeDiff;
 
-                                                            @Override
-                                                            public void onAnimationStart(Entity entity) {
-                                                                prevSize = getEntity().cast(UIEntity.class).getBoundingBox().getSize();
-                                                                sizeDiff = prevSize.minus(new Vec2(150, 200));
-                                                                getEntity().cast(UIEntity.class).withBoundingBox(
-                                                                        b -> b.setRenderOrder(0)
-                                                                );
-                                                            }
-
-                                                            @Override
-                                                            public void updateAnimation(Entity entity, double v) {
-                                                                getEntity().cast(UIEntity.class).withBoundingBox(
-                                                                        b -> {
-                                                                            b.setSize(prevSize.x - sizeDiff.x * v, prevSize.y - sizeDiff.y * v);
-                                                                        }
-                                                                );
-                                                            }
-
-                                                            @Override
-                                                            public void onAnimationEnd(Entity entity) {
-                                                                getEntity().cast(UIEntity.class).withBoundingBox(
-                                                                        b -> b.setSize(150, 200)
-                                                                );
-                                                                isOneAnimating = false;
-                                                            }
+                                                        @Override
+                                                        public void updateAnimation(Entity entity, double v) {
+                                                            entity.cast(UIEntity.class).withBoundingBox(
+                                                                    b -> {
+                                                                        b.setSize(
+                                                                                prevSize.x + sizeDiff.x * v,
+                                                                                prevSize.y + sizeDiff.y * v
+                                                                        );
+                                                                    }
+                                                            );
                                                         }
-                                                );
-                                            }
+
+                                                        @Override
+                                                        public void onAnimationEnd(Entity entity) {
+                                                            entity.cast(UIEntity.class).withBoundingBox(
+                                                                    b -> {
+                                                                        b.setSize(200, 300);
+                                                                    }
+                                                            );
+                                                        }
+                                                    }
+                                            );
+                                        } else if (!this.getEntity().getComponent(AnimationComponent.class).isAnimating()) {
+                                            this.getEntity().getComponent(AnimationComponent.class).applyAnimation(
+                                                    new Animation<Entity>(10) {
+                                                        private Vec2 prevSize, sizeDiff;
+
+                                                        @Override
+                                                        public void onAnimationStart(Entity entity) {
+                                                            prevSize = entity.cast(UIEntity.class).getBoundingBox().getSize();
+                                                            sizeDiff = prevSize.minus(new Vec2(150, 200));
+                                                        }
+
+                                                        @Override
+                                                        public void updateAnimation(Entity entity, double v) {
+                                                            entity.cast(UIEntity.class).withBoundingBox(
+                                                                    b -> {
+                                                                        b.setSize(
+                                                                                prevSize.x - sizeDiff.x * v,
+                                                                                prevSize.y - sizeDiff.y * v
+                                                                        );
+                                                                    }
+                                                            );
+                                                        }
+
+                                                        @Override
+                                                        public void onAnimationEnd(Entity entity) {
+                                                            entity.cast(UIEntity.class).withBoundingBox(
+                                                                    b -> {
+                                                                        b.setSize(150, 200);
+                                                                        b.setRenderOrder(0);
+                                                                    }
+                                                            );
+                                                        }
+                                                    }
+                                            );
                                         }
-
                                     }
-                                },
-                                new AnimationComponent()
+                                }
                         ).cast();
             }
+        }
+        for (CardDeck deck : decks) {
+            deck.addAllEntities(state);
         }
     }
 

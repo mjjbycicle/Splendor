@@ -14,6 +14,7 @@ public class SingleValue extends Value {
 
     public SingleValue(Color color, int num) {
         this.color = color;
+        this.num = num;
     }
 
     @Override

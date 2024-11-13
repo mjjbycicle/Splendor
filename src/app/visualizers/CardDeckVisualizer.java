@@ -10,7 +10,7 @@ import jGameLib.ui2d.utils.ImageRendererComponent;
 public class CardDeckVisualizer {
     private static ImageRendererComponent getDeckImage(int tier) {
         return new ImageRendererComponent(
-                "card/card face pics/FACE_DOWN_TIER_" + tier + ".png"
+                "cards/face down pics/TIER_" + tier + ".png"
         );
     }
 
@@ -20,12 +20,12 @@ public class CardDeckVisualizer {
                         b -> {
                             try {
                                 b.setAbsolutePosition(
-                                        ObjectLocations.GAME_CARD_MATRIX.getMatrixLocation(-1, tier - 1)
+                                        ObjectLocations.GAME_CARD_MATRIX.getMatrixLocation(3 - tier, -1)
                                 );
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
-                            b.setSize(Sizes.ACTIVE_CARD.location);
+                            b.setSize(Sizes.ACTIVE_CARD.size);
                         }
                 )
                 .addComponents(
