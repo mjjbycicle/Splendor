@@ -60,7 +60,7 @@ public enum ObjectLocations {
         return baseLocation;
     }
 
-    public Vec2 getChipLocation(Color color, int index) throws Exception {
+    public Vec2 getChipLocation(Color color) throws Exception {
         Vec2 baseLocation;
         if (this == ObjectLocations.GAME_CHIPS) {
             baseLocation = new Vec2(-900, 500);
@@ -68,7 +68,6 @@ public enum ObjectLocations {
             throw new Exception("Attempting to get game chip location");
         }
         baseLocation = baseLocation.plus(40 * color.getNumVal(), 0);
-        baseLocation = baseLocation.minus(0, 3 * index);
         return baseLocation;
     }
 }
