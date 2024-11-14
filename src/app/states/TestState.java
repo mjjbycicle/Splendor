@@ -1,20 +1,44 @@
 package app.states;
 
 import app.constants.Color;
-import app.constants.ObjectLocations;
 import app.game.Game;
-import app.helpers.SingleValue;
-import app.objects.ChipStack;
-import app.visualizers.entities.ChipStackEntity;
+import app.game.Player;
+import app.helpers.Price;
+import app.objects.Card;
+import app.visualizers.HandVisualizer;
 import jGameLib.core.GameState;
-import jGameLib.util.Pair;
-import jGameLib.util.math.Vec2;
 
 public class TestState extends GameState {
-    private final Game game;
+//    private final Game game;
+//
+//    public TestState() {
+//        game = new Game();
+//        game.addGame(this);
+//    }
+//
+//    @Override
+//    public void onUpdate() {
+//        if (game.getClickedCard() != null) {
+//            game.getActivePlayer().hand.buyCard(game.getClickedCard());
+//        }
+//    }
 
     public TestState() {
-        game = new Game();
-        game.addGame(this);
+        Player p = new Player(0);
+        p.hand.addChips(
+                new Price()
+                        .set(Color.RED, 30)
+                        .set(Color.WHITE, 30)
+                        .set(Color.BLUE, 30)
+                        .set(Color.BLACK, 30)
+                        .set(Color.GREEN, 30)
+                        .set(Color.ANY, 30)
+        );
+        p.hand.buyCard(new Card(0));
+//        p.hand.buyCard(new Card(20));
+//        p.hand.buyCard(new Card(40));
+//        p.hand.buyCard(new Card(60));
+//        p.hand.buyCard(new Card(80));
+        p.visualizer.addPlayerActiveEntities(this);
     }
 }

@@ -90,7 +90,7 @@ public class Hand {
         for (Map.Entry<Color, Integer> entry : diff.getGems().entrySet()) {
             entry.setValue(entry.getValue() + cards.get(entry.getKey()).getValue().getNum());
             if (entry.getValue() < 0) {
-                sum += entry.getValue();
+                sum -= entry.getValue();
                 entry.setValue(0);
             }
         }

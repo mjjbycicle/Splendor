@@ -32,12 +32,6 @@ public class SingleValue extends Value {
         return this;
     }
 
-    /**
-     * @param other the {@link Value} to add to this.
-     *              It only adds the value of the same color gem as
-     *              {@link SingleValue#color} to itself.
-     * @return this to allow chaining
-     */
     @Override
     public Value plus(Value other) {
         num += other.getGems().get(color);

@@ -28,7 +28,7 @@ public class CardMatrixEntity extends UIEntity {
                                             () -> numHovered,
                                             i, j,
                                             cardsClicked,
-                                            true
+                                            false
                                     ).getBoundingBox()
                             );
                         }
@@ -47,7 +47,6 @@ public class CardMatrixEntity extends UIEntity {
                             }
                         }
                         numHovered = hovering;
-                        if (hovering == 1) System.out.println("hovering");
                     }
                 }
         );

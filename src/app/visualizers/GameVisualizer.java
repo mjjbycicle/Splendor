@@ -2,6 +2,7 @@ package app.visualizers;
 
 import app.constants.ObjectLocations;
 import app.game.Player;
+import app.objects.Card;
 import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
@@ -30,7 +31,7 @@ public class GameVisualizer {
         this.chips = new GameChipStacksVisualizer(chips);
     }
 
-    public Pair<Integer, Integer> getCardClicked() {
+    public Card getCardClicked() {
         return cards.getCardClicked();
     }
 

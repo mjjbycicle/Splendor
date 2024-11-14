@@ -45,7 +45,7 @@ public class GameCardMatrixVisualizer {
         }
     }
 
-    public Pair<Integer, Integer> getCardClicked() {
+    public Pair<Integer, Integer> getIndexClicked() {
         for (int i = 0; i < cardsClicked.size(); i++) {
             for (int j = 0; j < cardsClicked.getFirst().size(); j++) {
                 if (cardsClicked.get(i).get(j)) {
@@ -55,6 +55,11 @@ public class GameCardMatrixVisualizer {
             }
         }
         return null;
+    }
+
+    public Card getCardClicked() {
+        if (getIndexClicked() == null) return null;
+        return cardMatrix.get(getIndexClicked().a()).get(getIndexClicked().b());
     }
 
     public Card getCard(Pair<Integer, Integer> index) {

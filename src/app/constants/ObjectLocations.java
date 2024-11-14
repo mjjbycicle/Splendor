@@ -33,7 +33,7 @@ public enum ObjectLocations {
             case ACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(0, 400);
             default -> throw new Exception("Attempting to get active location of an inactive location");
         }
-        baseLocation = baseLocation.plus(25 * color.getNumVal(), 0);
+        baseLocation = baseLocation.plus(120 * color.getNumVal(), 0);
         baseLocation = baseLocation.plus(0, 25 * index);
         return baseLocation;
     }

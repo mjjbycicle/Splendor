@@ -6,6 +6,7 @@ import app.constants.Sizes;
 import app.objects.CardStack;
 import app.objects.ChipStack;
 import app.objects.Noble;
+import app.visualizers.entities.CardStackEntity;
 import app.visualizers.entities.ChipStackEntity;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
@@ -49,13 +50,20 @@ public class HandVisualizer {
 
     private void addInactiveCardEntities(int order, GameState state) {
         for (CardStack stack : cards.values()) {
-            CardStackVisualizer.addInactiveCardStack(stack, order, state);
+            new CardStackEntity(
+                    state,
+                    stack,
+                    order
+            );
         }
     }
 
     private void addActiveCardEntities(GameState state) {
         for (CardStack stack : cards.values()) {
-            CardStackVisualizer.addActiveCardStack(stack, state);
+            new CardStackEntity(
+                    state,
+                    stack
+            );
         }
     }
 

@@ -12,11 +12,13 @@ import jGameLib.ui2d.input.UserInputState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.utils.HoverDetectionComponent;
 import jGameLib.ui2d.utils.ImageRendererComponent;
+import jGameLib.ui2d.utils.PositionAnimation;
 import jGameLib.ui2d.utils.RoundedRectRendererComponent;
 import jGameLib.util.math.Vec2;
 
 import java.awt.*;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 
 public class CardEntity extends UIEntity {
@@ -110,5 +112,46 @@ public class CardEntity extends UIEntity {
                     }
             );
         }
+    }
+
+    public CardEntity(GameState state, Card card, int i, BooleanSupplier isOneHovered, Vec2 absLoc) {
+        super(state);
+        loc = absLoc;
+        super.withBoundingBox(
+                b -> {
+                    b.setSize(Sizes.ACTIVE_CARD.size);
+                    b.setAbsolutePosition(absLoc);
+                }
+        ).addComponents(
+                new ImageRendererComponent(
+                        "cards/card face pics/CARD_" + card.getID() + ".png"
+                ),
+                new AnimationComponent(),
+                new HoverDetectionComponent(),
+                new UserInputHandlerComponent() {
+                    @Override
+                    protected void update(UserInputState state) {
+                        if (!getComponent(AnimationComponent.class).isAnimating()) {
+                            if (isOneHovered.getAsBoolean()) {
+                                getComponent(AnimationComponent.class).applyAnimation(
+                                        new PositionAnimation(
+                                                new Vec2(0, 300 * i),
+                                                10,
+                                                false
+                                        )
+                                );
+                            } else {
+                                getComponent(AnimationComponent.class).applyAnimation(
+                                        new PositionAnimation(
+                                                absLoc,
+                                                10,
+                                                true
+                                        )
+                                );
+                            }
+                        }
+                    }
+                }
+        );
     }
 }

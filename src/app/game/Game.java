@@ -3,6 +3,7 @@ package app.game;
 import app.constants.Color;
 import app.helpers.Price;
 import app.helpers.SingleValue;
+import app.objects.Card;
 import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
@@ -17,6 +18,7 @@ public class Game {
     private final List<CardDeck> decks;
     private final List<ChipStack> chipStacks;
     private final List<Noble> nobles;
+    private int activePlayer = 0;
     private final GameVisualizer visualizer;
 
     public Game() {
@@ -57,11 +59,21 @@ public class Game {
         visualizer.addAllEntities(state);
     }
 
-    public Pair<Integer, Integer> getClickedCard() {
+    public Card getClickedCard() {
         return visualizer.getCardClicked();
     }
 
     public int getClickedChipStack() {
         return visualizer.getChipStackClicked();
+    }
+
+    public void advanceRound() {
+        activePlayer++;
+        activePlayer %= 4;
+        for (Player player : players) player.advancePlayer();
+    }
+
+    public Player getActivePlayer() {
+        return players.get(activePlayer);
     }
 }
