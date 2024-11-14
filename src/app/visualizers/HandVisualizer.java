@@ -6,6 +6,7 @@ import app.constants.Sizes;
 import app.objects.CardStack;
 import app.objects.ChipStack;
 import app.objects.Noble;
+import app.visualizers.entities.ChipStackEntity;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
@@ -26,13 +27,23 @@ public class HandVisualizer {
 
     private void addInactiveChipEntities(int order, GameState state) {
         for (ChipStack stack : chips.values()) {
-            ChipStackVisualizer.addInactiveChipStack(stack, order, state);
+            try {
+                new ChipStackEntity(state, stack,
+                        ObjectLocations.INACTIVE_PLAYER_CHIPS.getInactiveLocation(order, stack.getValue().getColor(), 0));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     private void addActiveChipEntities(GameState state) {
         for (ChipStack stack : chips.values()) {
-            ChipStackVisualizer.addActiveChipStack(stack, state);
+            try {
+                new ChipStackEntity(state, stack,
+                        ObjectLocations.ACTIVE_PLAYER_CHIPS.getActiveLocation(stack.getValue().getColor(), 0));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

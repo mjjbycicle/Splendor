@@ -43,31 +43,31 @@ public enum ObjectLocations {
         switch (this) {
             case INACTIVE_NOBLE_LOCATIONS -> baseLocation = new Vec2(500, -150);
             case ACTIVE_NOBLE_LOCATIONS -> baseLocation = new Vec2(0, 450);
-            case GAME_NOBLES -> baseLocation = new Vec2(-600, 500);
+            case GAME_NOBLES -> baseLocation = new Vec2(-854, 250);
             default -> throw new Exception("Attempting to get noble location of a non noble location");
         }
         if (this == INACTIVE_NOBLE_LOCATIONS) {
             baseLocation = baseLocation.plus(0, order * 325);
         }
-        baseLocation = baseLocation.plus(120 * index, 0);
+        baseLocation = baseLocation.plus(139 * index, 0);
         return baseLocation;
     }
 
     public Vec2 getMatrixLocation(int i, int j) throws Exception {
         if (this != GAME_CARD_MATRIX) throw new Exception("Attempting to get matrix location of a non matrix location");
-        Vec2 baseLocation = new Vec2(-600, -300);
-        baseLocation = baseLocation.plus(j * 160, i * 225);
+        Vec2 baseLocation = new Vec2(-715, -275);
+        baseLocation = baseLocation.plus(j * 139, i * 185);
         return baseLocation;
     }
 
     public Vec2 getChipLocation(Color color) throws Exception {
         Vec2 baseLocation;
         if (this == ObjectLocations.GAME_CHIPS) {
-            baseLocation = new Vec2(-900, 500);
+            baseLocation = new Vec2(-854, 400);
         } else {
             throw new Exception("Attempting to get game chip location");
         }
-        baseLocation = baseLocation.plus(40 * color.getNumVal(), 0);
+        baseLocation = baseLocation.plus(110 * color.getNumVal(), 0);
         return baseLocation;
     }
 }

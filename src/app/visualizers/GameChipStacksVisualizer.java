@@ -16,23 +16,20 @@ import java.util.Map;
 public class GameChipStacksVisualizer {
     private final List<ChipStack> chipStacks;
     private final List<Boolean> chipStacksClicked;
-    private final Map<Color, Integer> chipStacksHovered;
 
     public GameChipStacksVisualizer(List<ChipStack> chipStacks) {
         this.chipStacks = chipStacks;
         chipStacksClicked = new ArrayList<>();
         for (int i = 0; i < chipStacks.size(); i++) chipStacksClicked.add(false);
-        chipStacksHovered = new HashMap<>();
-        for (Color color : Color.values()) chipStacksHovered.put(color, 0);
     }
 
     public void addChipStacks(GameState state) {
         for (int i = 0; i < chipStacks.size(); i++) {
-            int finalI = i;
             try {
                 new ChipStackEntity(
                         state, chipStacks.get(i),
-                        ObjectLocations.GAME_CHIPS.getChipLocation(chipStacks.get(i).getValue().getColor())
+                        i,
+                        chipStacksClicked
                 );
             } catch (Exception e) {
                 throw new RuntimeException(e);

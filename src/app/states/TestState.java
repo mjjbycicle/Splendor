@@ -1,8 +1,14 @@
 package app.states;
 
+import app.constants.Color;
+import app.constants.ObjectLocations;
 import app.game.Game;
+import app.helpers.SingleValue;
+import app.objects.ChipStack;
+import app.visualizers.entities.ChipStackEntity;
 import jGameLib.core.GameState;
 import jGameLib.util.Pair;
+import jGameLib.util.math.Vec2;
 
 public class TestState extends GameState {
     private final Game game;
@@ -10,13 +16,5 @@ public class TestState extends GameState {
     public TestState() {
         game = new Game();
         game.addGame(this);
-    }
-
-    @Override
-    protected void onUpdate() {
-        Pair<Integer, Integer> clicked = game.getClickedCard();
-        if (clicked != null) System.out.println("row: " + clicked.a() + " col: " + clicked.b());
-        int clickedChips = game.getClickedChipStack();
-        if (clickedChips != -1) System.out.println("chip : clickedChips");
     }
 }

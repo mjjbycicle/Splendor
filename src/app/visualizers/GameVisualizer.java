@@ -10,7 +10,9 @@ import jGameLib.core.Entity;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
+import jGameLib.ui2d.utils.ImageRendererComponent;
 import jGameLib.util.Pair;
+import jGameLib.util.math.Vec2;
 
 import java.util.List;
 
@@ -43,6 +45,17 @@ public class GameVisualizer {
         for (Player player : players) {
             player.addPlayer(state);
         }
+        new UIEntity(state)
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(new Vec2(0, 0));
+                            b.setSize(1920, 1080);
+                            b.setRenderOrder(-100);
+                        }
+                ).addComponents(
+                        new UIRendererRootComponent(),
+                        new ImageRendererComponent("BG images/Gameplay BG.png")
+                );
     }
 
     private void addNobles(GameState state) {

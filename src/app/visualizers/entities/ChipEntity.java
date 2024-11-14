@@ -1,6 +1,7 @@
 package app.visualizers.entities;
 
 import app.constants.Color;
+import app.constants.Sizes;
 import jGameLib.animation.AnimationComponent;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.input.UserInputHandlerComponent;
@@ -18,7 +19,7 @@ public class ChipEntity extends UIEntity {
         super(state);
         super.withBoundingBox(
                 b -> {
-                    b.setSize(40, 40);
+                    b.setSize(Sizes.ACTIVE_CHIP.size);
                     b.setAbsolutePosition(absLoc);
                 }
         ).addComponents(
@@ -30,26 +31,25 @@ public class ChipEntity extends UIEntity {
                 new UserInputHandlerComponent() {
                     @Override
                     protected void update(UserInputState state) {
-                        if (getComponent(HoverDetectionComponent.class).contains(state.getMousePosition()))
-                            if (!getComponent(AnimationComponent.class).isAnimating()) {
-                                if (isOneHovered.getAsBoolean()) {
-                                    getComponent(AnimationComponent.class).applyAnimation(
-                                            new PositionAnimation(
-                                                    new Vec2(0, -8 * i),
-                                                    10,
-                                                    false
-                                            )
-                                    );
-                                } else {
-                                    getComponent(AnimationComponent.class).applyAnimation(
-                                            new PositionAnimation(
-                                                    absLoc,
-                                                    10,
-                                                    false
-                                            )
-                                    );
-                                }
+                        if (!getComponent(AnimationComponent.class).isAnimating()) {
+                            if (isOneHovered.getAsBoolean()) {
+                                getComponent(AnimationComponent.class).applyAnimation(
+                                        new PositionAnimation(
+                                                new Vec2(0, -20 * i),
+                                                10,
+                                                false
+                                        )
+                                );
+                            } else {
+                                getComponent(AnimationComponent.class).applyAnimation(
+                                        new PositionAnimation(
+                                                absLoc,
+                                                10,
+                                                true
+                                        )
+                                );
                             }
+                        }
                     }
                 }
         );
