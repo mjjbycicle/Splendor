@@ -69,33 +69,24 @@ public class Hand {
     }
 
     public boolean canBuyCard(Card card) {
-        Price total = getHandTotal();
-        Price cost = card.getPrice();
-        Price diff = total.minus(cost);
-        int missing = 0;
-        for (int n : diff.getGems().values()) {
-            if (n < 0) {
-                missing -= n;
-            }
-        }
-        int any = total.getGems().get(Color.ANY);
-        return any >= missing;
+        return getHandTotal().contains(chipsToPay(card));
     }
 
     private Price chipsToPay(Card card) {
         Price total = getHandTotal();
         Price cost = card.getPrice();
         Price diff = total.minus(cost);
-        int sum = 0;
+        int anyRequired = 0;
         for (Map.Entry<Color, Integer> entry : diff.getGems().entrySet()) {
             entry.setValue(entry.getValue() + cards.get(entry.getKey()).getValue().getNum());
             if (entry.getValue() < 0) {
-                sum -= entry.getValue();
+                cost.set(entry.getKey(), cost.getGems().get(entry.getKey()) + entry.getValue());
+                anyRequired -= entry.getValue();
                 entry.setValue(0);
             }
         }
-        diff.set(Color.ANY, sum);
-        return diff;
+        cost.set(Color.ANY, anyRequired);
+        return cost;
     }
 
     private int getTotalChips() {
