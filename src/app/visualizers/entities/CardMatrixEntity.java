@@ -15,7 +15,7 @@ import java.util.List;
 public class CardMatrixEntity extends UIEntity {
     private int numHovered = 0;
 
-    public CardMatrixEntity(GameState state, List<List<Card>> cardMatrix, List<List<Boolean>> cardsClicked) {
+    public CardMatrixEntity(GameState state, List<List<Card>> cardMatrix, List<List<Boolean>> cardsClicked, List<List<Boolean>> grayCards) {
         super(state);
         super.withBoundingBox(
                 b -> {
@@ -28,7 +28,7 @@ public class CardMatrixEntity extends UIEntity {
                                             () -> numHovered,
                                             i, j,
                                             cardsClicked,
-                                            false
+                                            grayCards.get(i).get(j)
                                     ).getBoundingBox()
                             );
                         }

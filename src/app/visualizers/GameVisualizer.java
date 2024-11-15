@@ -15,19 +15,29 @@ import jGameLib.ui2d.utils.ImageRendererComponent;
 import jGameLib.util.Pair;
 import jGameLib.util.math.Vec2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameVisualizer {
     private final List<Player> players;
     private final List<Noble> nobles;
+    private final List<List<Card>> cardMatrix;
     private final GameCardMatrixVisualizer cards;
     private final GameChipStacksVisualizer chips;
+    private final List<List<Boolean>> grayCards;
 
     public GameVisualizer(List<Player> players, List<CardDeck> decks, List<ChipStack> chips, List<Noble> nobles) {
         this.players = players;
         this.nobles = nobles;
-
-        cards = new GameCardMatrixVisualizer(decks);
+        grayCards = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            grayCards.add(new ArrayList<>());
+            for (int j = 0; j < 4; j++) {
+                grayCards.get(i).add(false);
+            }
+        }
+        cards = new GameCardMatrixVisualizer(decks, grayCards);
+        cardMatrix = cards.getCardMatrix();
         this.chips = new GameChipStacksVisualizer(chips);
     }
 
@@ -79,6 +89,34 @@ public class GameVisualizer {
                             new UIRendererRootComponent(),
                             nobles.get(i).getImage()
                     ).cast();
+        }
+    }
+
+    public void usePlayerGrayCards(Player player) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                boolean canBuyCard =
+                        player.hand.canBuyCard(cardMatrix.get(i).get(j));
+                grayCards.get(i).set(
+                        j, !canBuyCard
+                );
+            }
+        }
+    }
+
+    private void setGrayCards(List<List<Boolean>> toGray) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                grayCards.get(i).set(j, toGray.get(i).get(j));
+            }
+        }
+    }
+
+    public void cancelGrayCards() {
+        for (var i : grayCards) {
+            for (int j = 0; j < 4; j++) {
+                i.set(j, false);
+            }
         }
     }
 }

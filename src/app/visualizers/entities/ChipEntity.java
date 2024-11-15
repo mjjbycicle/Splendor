@@ -10,22 +10,20 @@ import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.utils.HoverDetectionComponent;
 import jGameLib.ui2d.utils.ImageRendererComponent;
 import jGameLib.ui2d.utils.PositionAnimation;
+import jGameLib.ui2d.utils.RoundedRectRendererComponent;
 import jGameLib.util.math.Vec2;
 
 import java.util.function.BooleanSupplier;
 
 public class ChipEntity extends UIEntity {
-    public ChipEntity(GameState state, Color color, int i, BooleanSupplier isOneHovered, Vec2 absLoc) {
+    public ChipEntity(GameState state, Color color, int i, BooleanSupplier isOneHovered, Vec2 absLoc, Vec2 size) {
         super(state);
         super.withBoundingBox(
                 b -> {
-                    b.setSize(Sizes.ACTIVE_CHIP.size);
+                    b.setSize(size);
                     b.setAbsolutePosition(absLoc);
                 }
         ).addComponents(
-                new ImageRendererComponent(
-                        "chips/" + color.name() + "_CHIP.png"
-                ),
                 new AnimationComponent(),
                 new HoverDetectionComponent(),
                 new UserInputHandlerComponent() {
@@ -51,7 +49,10 @@ public class ChipEntity extends UIEntity {
                             }
                         }
                     }
-                }
+                },
+                new ImageRendererComponent(
+                        "chips/" + color.name() + "_CHIP.png"
+                )
         );
     }
 }

@@ -1,7 +1,6 @@
 package app.game;
 
 import app.constants.Color;
-import app.helpers.Price;
 import app.helpers.SingleValue;
 import app.objects.Card;
 import app.objects.CardDeck;
@@ -9,7 +8,6 @@ import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.GameVisualizer;
 import jGameLib.core.GameState;
-import jGameLib.util.Pair;
 
 import java.util.*;
 
@@ -19,7 +17,7 @@ public class Game {
     private final List<ChipStack> chipStacks;
     private final List<Noble> nobles;
     private int activePlayer = 0;
-    private final GameVisualizer visualizer;
+    public final GameVisualizer visualizer;
 
     public Game() {
         players = Arrays.asList(

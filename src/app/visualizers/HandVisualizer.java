@@ -30,7 +30,10 @@ public class HandVisualizer {
         for (ChipStack stack : chips.values()) {
             try {
                 new ChipStackEntity(state, stack,
-                        ObjectLocations.INACTIVE_PLAYER_CHIPS.getInactiveLocation(order, stack.getValue().getColor(), 0));
+                        ObjectLocations.INACTIVE_PLAYER_CHIPS.getInactiveLocation(order, stack.getValue().getColor(), 0),
+                        Sizes.INACTIVE_CHIP.size,
+                        false
+                );
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -41,7 +44,10 @@ public class HandVisualizer {
         for (ChipStack stack : chips.values()) {
             try {
                 new ChipStackEntity(state, stack,
-                        ObjectLocations.ACTIVE_PLAYER_CHIPS.getActiveLocation(stack.getValue().getColor(), 0));
+                        ObjectLocations.ACTIVE_PLAYER_CHIPS.getActiveLocation(stack.getValue().getColor(), 0),
+                        Sizes.ACTIVE_CHIP.size,
+                        false
+                );
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

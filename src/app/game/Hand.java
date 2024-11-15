@@ -8,8 +8,6 @@ import app.objects.Card;
 import app.objects.CardStack;
 import app.objects.ChipStack;
 import app.objects.Noble;
-import app.visualizers.HandVisualizer;
-import jGameLib.core.GameState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +51,7 @@ public class Hand {
 
     public void buyCard(Card card) {
         cards.get(card.getValue().getColor()).pushCard(card);
-        takeChips(chipsToPay(card));
+        removeChips(chipsToPay(card));
     }
 
     public void addChips(Value value) {
@@ -62,7 +60,7 @@ public class Hand {
         }
     }
 
-    public void takeChips(Value value) {
+    public void removeChips(Value value) {
         for (ChipStack stack : chips.values()) {
             stack.take(value);
         }
