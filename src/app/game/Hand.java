@@ -49,9 +49,11 @@ public class Hand {
         return total;
     }
 
-    public void buyCard(Card card) {
+    public Price buyCard(Card card) {
         cards.get(card.getValue().getColor()).pushCard(card);
-        removeChips(chipsToPay(card));
+        Price res = chipsToPay(card);
+        removeChips(res);
+        return res;
     }
 
     public void addChips(Value value) {
@@ -105,5 +107,13 @@ public class Hand {
 
     public void takeNoble(Noble noble) {
         nobles.add(noble);
+    }
+
+    public void addReservedCard(Card card) {
+        cards.get(Color.ANY).pushCard(card);
+    }
+
+    public boolean canReserve() {
+        return cards.get(Color.ANY).getCards().size() < 3;
     }
 }

@@ -1,6 +1,7 @@
 package app.game;
 
 import app.constants.Color;
+import app.helpers.Price;
 import app.helpers.SingleValue;
 import app.objects.Card;
 import app.objects.CardDeck;
@@ -8,6 +9,7 @@ import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.GameVisualizer;
 import jGameLib.core.GameState;
+import jGameLib.util.Pair;
 
 import java.util.*;
 
@@ -73,5 +75,35 @@ public class Game {
 
     public Player getActivePlayer() {
         return players.get(activePlayer);
+    }
+
+    public void addChips(Price chips) {
+        for (ChipStack stack : chipStacks) {
+            stack.add(chips);
+        }
+    }
+
+    public void takeAnyChip() {
+        boolean anyChipTaken = false;
+        for (ChipStack stack : chipStacks) {
+            if (stack.getValue().getColor() == Color.ANY) {
+                if (stack.getValue().getNum() > 0) {
+                    stack.take(new SingleValue(Color.ANY, 1));
+                    anyChipTaken = true;
+                }
+            }
+        }
+        if (anyChipTaken) {
+            getActivePlayer().hand.addChips(new SingleValue(Color.ANY, 1));
+        }
+    }
+
+    public void replaceCard(Pair<Integer, Integer> index) {
+        Card newCard = decks.get(index.a()).drawTopCard();
+        visualizer.replaceCard(index, newCard);
+    }
+
+    public Pair<Integer, Integer> getClickedIndex() {
+        return visualizer.getClickedIndex();
     }
 }

@@ -104,19 +104,19 @@ public class GameVisualizer {
         }
     }
 
-    private void setGrayCards(List<List<Boolean>> toGray) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
-                grayCards.get(i).set(j, toGray.get(i).get(j));
-            }
-        }
-    }
-
     public void cancelGrayCards() {
         for (var i : grayCards) {
             for (int j = 0; j < 4; j++) {
                 i.set(j, false);
             }
         }
+    }
+
+    public void replaceCard(Pair<Integer, Integer> index, Card newCard) {
+        cardMatrix.get(index.a()).set(index.b(), newCard);
+    }
+
+    public Pair<Integer, Integer> getClickedIndex() {
+        return cards.getIndexClicked();
     }
 }

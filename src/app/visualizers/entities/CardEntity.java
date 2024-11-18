@@ -64,6 +64,23 @@ public class CardEntity extends UIEntity {
                         );
                     }
             );
+            super.addComponent(
+                    new UserInputHandlerComponent() {
+                        @Override
+                        protected void onMouseDown(MouseEvent me) {
+                            if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
+                                cardsClicked.get(i).set(j, true);
+                            }
+                        }
+
+                        @Override
+                        protected void onMouseUp(MouseEvent me) {
+                            if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
+                                cardsClicked.get(i).set(j, false);
+                            }
+                        }
+                    }
+            );
         } else {
             super.addComponent(
                     new UserInputHandlerComponent() {
@@ -114,12 +131,13 @@ public class CardEntity extends UIEntity {
         }
     }
 
-    public CardEntity(GameState state, Card card, int i, BooleanSupplier isOneHovered, Vec2 absLoc) {
+    public CardEntity(GameState state, Card card, int i, BooleanSupplier isOneHovered, Vec2 absLoc, boolean gray, boolean active) {
         super(state);
         loc = absLoc;
+        Vec2 size = active?Sizes.ACTIVE_CARD.size:Sizes.INACTIVE_CARD.size;
         super.withBoundingBox(
                 b -> {
-                    b.setSize(Sizes.ACTIVE_CARD.size);
+                    b.setSize(size);
                     b.setAbsolutePosition(absLoc);
                 }
         ).addComponents(
@@ -135,7 +153,7 @@ public class CardEntity extends UIEntity {
                             if (isOneHovered.getAsBoolean()) {
                                 getComponent(AnimationComponent.class).applyAnimation(
                                         new PositionAnimation(
-                                                new Vec2(0, 300 * i),
+                                                new Vec2(0, 200 * i),
                                                 10,
                                                 false
                                         )
@@ -153,5 +171,27 @@ public class CardEntity extends UIEntity {
                     }
                 }
         );
+        if (gray) {
+            super.withBoundingBox(
+                    b -> {
+                        b.addChild(
+                                new UIEntity(state)
+                                        .withBoundingBox(
+                                                b2 -> {
+                                                    b2.setSize(size);
+                                                    b2.setRelativePosition(0, 0);
+                                                    b2.setRenderOrder(1000);
+                                                }
+                                        ).addComponent(
+                                                new RoundedRectRendererComponent(
+                                                        5,
+                                                        null,
+                                                        new Color(0, 0, 0, 186)
+                                                )
+                                        ).cast(UIEntity.class).getBoundingBox()
+                        );
+                    }
+            );
+        }
     }
 }

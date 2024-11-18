@@ -1,5 +1,6 @@
 package app.visualizers.entities;
 
+import app.constants.Color;
 import app.constants.ObjectLocations;
 import app.constants.Sizes;
 import app.objects.CardStack;
@@ -36,7 +37,9 @@ public class CardStackEntity extends UIEntity {
                                             stack.getCards().get(x),
                                             x,
                                             () -> isOneHovered,
-                                            ObjectLocations.INACTIVE_PLAYER_CARDS.getInactiveLocation(order, stack.getColor(), x)
+                                            ObjectLocations.INACTIVE_PLAYER_CARDS.getInactiveLocation(order, stack.getColor(), x),
+                                            stack.getColor() == Color.ANY,
+                                            false
                                     ).getBoundingBox()
                             );
                         } catch (Exception e) {
@@ -83,7 +86,9 @@ public class CardStackEntity extends UIEntity {
                                             stack.getCards().get(x),
                                             x,
                                             () -> isOneHovered,
-                                            ObjectLocations.ACTIVE_PLAYER_CARDS.getActiveLocation(stack.getColor(), x)
+                                            ObjectLocations.ACTIVE_PLAYER_CARDS.getActiveLocation(stack.getColor(), x),
+                                            stack.getColor() == Color.ANY,
+                                            true
                                     ).getBoundingBox()
                             );
                         } catch (Exception e) {

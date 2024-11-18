@@ -20,7 +20,13 @@ public class SingleValue extends Value {
     @Override
     public Map<Color, Integer> getGems() {
         Map<Color, Integer> gems = new HashMap<>();
-        gems.put(color, num);
+        for (Color color : Color.values()) {
+            if (color == this.color) {
+                gems.put(color, num);
+            } else {
+                gems.put(color, 0);
+            }
+        }
         return gems;
     }
 

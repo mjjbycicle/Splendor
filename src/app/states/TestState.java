@@ -23,14 +23,4 @@ public class TestState extends GameState {
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.addGame(this);
     }
-
-    @Override
-    public void onUpdate() {
-        Card clickedCard = game.visualizer.getCardClicked();
-        if (clickedCard != null) {
-            if (game.getActivePlayer().hand.canBuyCard(clickedCard)) {
-                game.getActivePlayer().hand.buyCard(clickedCard);
-            }
-        }
-    }
 }

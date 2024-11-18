@@ -1,3 +1,7 @@
+import app.constants.Color;
+import app.game.Game;
+import app.helpers.Price;
+import app.states.TestGameState;
 import app.states.TestState;
 import jGameLib.core.StateMachine;
 import jGameLib.ui2d.GameWindow;
@@ -9,8 +13,19 @@ public class Main {
         GameWindow.enableHardwareAcceleration();
         var a = new GameWindow("Splendor");
 
+        Game game = new Game();
+        game.getActivePlayer().hand.addChips(
+                new Price()
+                        .set(Color.BLUE, 2)
+                        .set(Color.RED, 2)
+                        .set(Color.GREEN, 2)
+                        .set(Color.BLACK, 2)
+                        .set(Color.WHITE, 2)
+        );
+        game.visualizer.usePlayerGrayCards(game.getActivePlayer());
+
         StateMachine.globalInstance.addSystem(new UserInputSystem(a.canvas));
         StateMachine.globalInstance.addSystem(new UIRendererSystem(a.canvas));
-        StateMachine.globalInstance.run(new TestState());
+        StateMachine.globalInstance.run(new TestGameState(game));
     }
 }
