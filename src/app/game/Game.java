@@ -19,6 +19,7 @@ public class Game {
     private final List<CardDeck> decks;
     private final List<ChipStack> chipStacks;
     private final List<Noble> nobles;
+    private final List<List<Card>> cardMatrix;
     private int activePlayer = 0;
     public final GameVisualizer visualizer;
 
@@ -44,7 +45,20 @@ public class Game {
                         new ChipStack(new SingleValue(Color.ANY, 5))
                 );
         addNobles();
-        visualizer = new GameVisualizer(players, decks, chipStacks, nobles);
+        cardMatrix = new ArrayList<>();
+        initCards();
+        visualizer = new GameVisualizer(players, decks, chipStacks, nobles, cardMatrix);
+    }
+
+    private void initCards() {
+        for (int i = 0; i < 3; i++) {
+            cardMatrix.add(Arrays.asList(
+                    decks.get(i).drawTopCard(),
+                    decks.get(i).drawTopCard(),
+                    decks.get(i).drawTopCard(),
+                    decks.get(i).drawTopCard()
+            ));
+        }
     }
 
     private void addNobles() {
@@ -129,6 +143,8 @@ public class Game {
         cloneDecks(res.decks);
         cloneNobles(res.nobles);
         cloneChips(res.chipStacks);
+        cloneCards(res.cardMatrix);
+        res.activePlayer = this.activePlayer;
         return res;
     }
 
@@ -152,6 +168,14 @@ public class Game {
     private void cloneChips(List<ChipStack> newChips) {
         for (int i = 0; i < chipStacks.size(); i++) {
             newChips.set(i, chipStacks.get(i).createClone());
+        }
+    }
+
+    private void cloneCards(List<List<Card>> newCards) {
+        for (int i = 0; i < cardMatrix.size(); i++) {
+            for (int j = 0; j < cardMatrix.getFirst().size(); j++) {
+                newCards.get(i).set(j, cardMatrix.get(i).get(j));
+            }
         }
     }
 }

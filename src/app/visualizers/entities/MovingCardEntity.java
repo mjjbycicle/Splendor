@@ -33,7 +33,7 @@ public class MovingCardEntity extends UIEntity {
         this.j = j;
         try {
             loc = ObjectLocations.GAME_CARD_MATRIX.getMatrixLocation(
-                    Cards.tiers.get(card.getID()), -1
+                    3 - Cards.tiers.get(card.getID()), -1
             );
         } catch (Exception e) {
             throw new RuntimeException(e);

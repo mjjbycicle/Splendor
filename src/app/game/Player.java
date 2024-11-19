@@ -34,7 +34,8 @@ public class Player {
     }
 
     public void advancePlayer() {
-        roundOrder++;
+        roundOrder--;
+        roundOrder += 4;
         roundOrder %= 4;
     }
 

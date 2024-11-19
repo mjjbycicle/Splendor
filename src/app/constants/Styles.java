@@ -18,7 +18,7 @@ public class Styles {
                     ).setAlignment(
                             TextStyle.TextAlign.CENTER
                     ).setColor(
-                            new Color(0xf3d318)
+                            new Color(0xD1B14A)
                     );
 
     public static TextStyle titleText = builder.setFontSize(80f).get();

@@ -33,7 +33,7 @@ public class ChipEntity extends UIEntity {
                             if (isOneHovered.getAsBoolean()) {
                                 getComponent(AnimationComponent.class).applyAnimation(
                                         new PositionAnimation(
-                                                new Vec2(0, -20 * i),
+                                                new Vec2(0, -20 * i + 5),
                                                 10,
                                                 false
                                         )

@@ -16,6 +16,7 @@ public class TurnStartedState extends GameState {
     public TurnStartedState(Game game) {
         this.game = game;
         prevGame = game.createClone();
+        game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.addGame(this);
     }
 
@@ -50,6 +51,7 @@ public class TurnStartedState extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
+        game.visualizer.cancelGrayCards();
         return iteratorOver(nextState);
     }
 }

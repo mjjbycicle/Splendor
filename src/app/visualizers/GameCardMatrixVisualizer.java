@@ -17,7 +17,7 @@ public class GameCardMatrixVisualizer {
     private final List<CardDeck> decks;
     private final List<List<Boolean>> grayCards;
 
-    public GameCardMatrixVisualizer(List<CardDeck> decks, List<List<Boolean>> grayCards) {
+    public GameCardMatrixVisualizer(List<CardDeck> decks, List<List<Boolean>> grayCards, List<List<Card>> cardMatrix) {
         this.decks = decks;
         cardsClicked = Arrays.asList(
                 Arrays.asList(false, false, false, false),
@@ -25,20 +25,8 @@ public class GameCardMatrixVisualizer {
                 Arrays.asList(false, false, false, false),
                 Arrays.asList(false, false, false, false)
         );
-        cardMatrix = new ArrayList<>();
-        initCards();
+        this.cardMatrix = cardMatrix;
         this.grayCards = grayCards;
-    }
-
-    private void initCards() {
-        for (int i = 0; i < 3; i++) {
-            cardMatrix.add(Arrays.asList(
-                    decks.get(i).drawTopCard(),
-                    decks.get(i).drawTopCard(),
-                    decks.get(i).drawTopCard(),
-                    decks.get(i).drawTopCard()
-            ));
-        }
     }
 
     public void addCards(GameState state) {

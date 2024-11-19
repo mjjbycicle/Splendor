@@ -28,7 +28,7 @@ public class GameVisualizer {
     private final GameChipStacksVisualizer chips;
     private final List<List<Boolean>> grayCards;
 
-    public GameVisualizer(List<Player> players, List<CardDeck> decks, List<ChipStack> chips, List<Noble> nobles) {
+    public GameVisualizer(List<Player> players, List<CardDeck> decks, List<ChipStack> chips, List<Noble> nobles, List<List<Card>> cardMatrix) {
         this.players = players;
         this.nobles = nobles;
         grayCards = new ArrayList<>();
@@ -38,8 +38,8 @@ public class GameVisualizer {
                 grayCards.get(i).add(false);
             }
         }
-        cards = new GameCardMatrixVisualizer(decks, grayCards);
-        cardMatrix = cards.getCardMatrix();
+        cards = new GameCardMatrixVisualizer(decks, grayCards, cardMatrix);
+        this.cardMatrix = cardMatrix;
         this.chips = new GameChipStacksVisualizer(chips);
     }
 

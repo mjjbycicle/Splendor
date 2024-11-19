@@ -14,6 +14,7 @@ public class TurnFinishedState extends GameState {
     private GameState nextState;
 
     public TurnFinishedState(Game game, Game prevGame) {
+        game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.addGame(this);
         new ButtonEntity(
                 this,
@@ -30,7 +31,6 @@ public class TurnFinishedState extends GameState {
                 b -> {
                     b.setAbsolutePosition(FinalLocation.CONTINUE_BUTTON.getLocation());
                     b.setRenderOrder(99);
-                    b.setSize(125, 30);
                 }
         ).addComponents(
                 new UIRendererRootComponent()
@@ -49,7 +49,6 @@ public class TurnFinishedState extends GameState {
                 b -> {
                     b.setAbsolutePosition(FinalLocation.CANCEL_BUTTON.getLocation());
                     b.setRenderOrder(99);
-                    b.setSize(175, 30);
                 }
         ).addComponents(
                 new UIRendererRootComponent()

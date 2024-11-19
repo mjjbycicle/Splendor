@@ -153,7 +153,7 @@ public class CardEntity extends UIEntity {
                             if (isOneHovered.getAsBoolean()) {
                                 getComponent(AnimationComponent.class).applyAnimation(
                                         new PositionAnimation(
-                                                new Vec2(0, 130 * i + 10),
+                                                new Vec2(0, (active ? 130 : 75) * i + 10),
                                                 10,
                                                 false
                                         )
