@@ -36,7 +36,8 @@ public class ChipStackEntity extends UIEntity {
                                         stack.getValue().getColor(),
                                         x,
                                         () -> isHovered,
-                                        loc.minus(0, 3 * x),
+                                        new Vec2(0, -3 * x),
+                                        loc,
                                         size
                                 ).cast(UIEntity.class).getBoundingBox()
                         );

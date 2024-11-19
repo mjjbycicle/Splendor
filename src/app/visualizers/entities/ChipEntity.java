@@ -16,12 +16,12 @@ import jGameLib.util.math.Vec2;
 import java.util.function.BooleanSupplier;
 
 public class ChipEntity extends UIEntity {
-    public ChipEntity(GameState state, Color color, int i, BooleanSupplier isOneHovered, Vec2 absLoc, Vec2 size) {
+    public ChipEntity(GameState state, Color color, int i, BooleanSupplier isOneHovered, Vec2 loc, Vec2 absLoc, Vec2 size) {
         super(state);
         super.withBoundingBox(
                 b -> {
                     b.setSize(size);
-                    b.setAbsolutePosition(absLoc);
+                    b.setRelativePosition(loc);
                 }
         ).addComponents(
                 new AnimationComponent(),
@@ -41,7 +41,7 @@ public class ChipEntity extends UIEntity {
                             } else {
                                 getComponent(AnimationComponent.class).applyAnimation(
                                         new PositionAnimation(
-                                                absLoc,
+                                                absLoc.minus(0, 3 * i),
                                                 10,
                                                 true
                                         )
