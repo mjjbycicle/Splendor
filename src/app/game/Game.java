@@ -8,6 +8,7 @@ import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.GameVisualizer;
+import app.visualizers.entities.AnimatedCardMatrixEntity;
 import jGameLib.core.GameState;
 import jGameLib.util.Pair;
 
@@ -59,11 +60,15 @@ public class Game {
         visualizer.addAllEntities(state);
     }
 
+    public AnimatedCardMatrixEntity addDealingGame(GameState state) {
+        return visualizer.addAnimationEntities(state);
+    }
+
     public Card getClickedCard() {
         return visualizer.getCardClicked();
     }
 
-    public int getClickedChipStack() {
+    public Color getClickedChipStack() {
         return visualizer.getChipStackClicked();
     }
 
@@ -96,6 +101,17 @@ public class Game {
         if (anyChipTaken) {
             getActivePlayer().hand.addChips(new SingleValue(Color.ANY, 1));
         }
+    }
+
+    public void takeChip(Color color) {
+        for (ChipStack stack : chipStacks) {
+            if (stack.getValue().getColor() == color) {
+                if (stack.getValue().getNum() > 0) {
+                    stack.take(new SingleValue(color, 1));
+                }
+            }
+        }
+        getActivePlayer().hand.addChips(new SingleValue(color, 1));
     }
 
     public void replaceCard(Pair<Integer, Integer> index) {

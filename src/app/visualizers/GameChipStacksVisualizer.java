@@ -66,13 +66,13 @@ public class GameChipStacksVisualizer {
         }
     }
 
-    public int getClickedChipStack() {
+    public Color getClickedChipStack() {
         for (int i = 0; i < chipStacksClicked.size(); i++) {
             if (chipStacksClicked.get(i)) {
-                if (chipStacks.get(i).getValue().getNum() != 0) return i;
+                if (chipStacks.get(i).getValue().getNum() != 0) return chipStacks.get(i).getValue().getColor();
             }
         }
-        return -1;
+        return null;
     }
 
     public boolean canTakeChip(int i, boolean second) {

@@ -28,7 +28,7 @@ public class Card {
     }
 
     public Price getPrice() {
-        return price;
+        return new Price(price.getGems());
     }
 
     public SingleValue getValue() {

@@ -33,7 +33,7 @@ public class CardEntity extends UIEntity {
         }
         super.withBoundingBox(
                 b -> {
-                    b.setSize(Sizes.ACTIVE_CARD.size);
+                    b.setSize(Sizes.GAME_CARD.size);
                     b.setAbsolutePosition(loc);
                 }
         ).addComponents(
@@ -50,7 +50,7 @@ public class CardEntity extends UIEntity {
                                 new UIEntity(state)
                                         .withBoundingBox(
                                                 b2 -> {
-                                                    b2.setSize(Sizes.ACTIVE_CARD.size);
+                                                    b2.setSize(Sizes.GAME_CARD.size);
                                                     b2.setRelativePosition(0, 0);
                                                     b2.setRenderOrder(1000);
                                                 }
@@ -107,7 +107,7 @@ public class CardEntity extends UIEntity {
                                             new SizeAnimation(
                                                     7,
                                                     getBoundingBox().getSize(),
-                                                    Sizes.HOVERED_ACTIVE_CARD.size
+                                                    Sizes.HOVERED_GAME_CARD.size
                                             )
                                     );
                                 } else if (!getComponent(HoverDetectionComponent.class).contains(state.getMousePosition())) {
@@ -115,7 +115,7 @@ public class CardEntity extends UIEntity {
                                             new SizeAnimation(
                                                     7,
                                                     getBoundingBox().getSize(),
-                                                    Sizes.ACTIVE_CARD.size
+                                                    Sizes.GAME_CARD.size
                                             )
                                     );
                                 }
@@ -153,7 +153,7 @@ public class CardEntity extends UIEntity {
                             if (isOneHovered.getAsBoolean()) {
                                 getComponent(AnimationComponent.class).applyAnimation(
                                         new PositionAnimation(
-                                                new Vec2(0, 200 * i),
+                                                new Vec2(0, 130 * i + 10),
                                                 10,
                                                 false
                                         )

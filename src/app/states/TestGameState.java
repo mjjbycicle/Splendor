@@ -1,6 +1,8 @@
 package app.states;
 
+import app.constants.Color;
 import app.game.Game;
+import app.helpers.SingleValue;
 import app.objects.Card;
 import jGameLib.core.GameState;
 
@@ -20,7 +22,6 @@ public class TestGameState extends GameState {
     public void onUpdate() {
         Card clickedCard = game.visualizer.getCardClicked();
         if (clickedCard != null) {
-            System.out.println("Clicked");
             if (game.getActivePlayer().hand.canBuyCard(clickedCard)) {
                 game.addChips(game.getActivePlayer().hand.buyCard(clickedCard));
                 game.replaceCard(game.getClickedIndex());
@@ -28,9 +29,16 @@ public class TestGameState extends GameState {
             }
             else {
                 game.takeAnyChip();
-//                game.getActivePlayer().hand.addReservedCard(clickedCard);
+                game.getActivePlayer().hand.addReservedCard(clickedCard);
+                game.replaceCard(game.getClickedIndex());
             }
             nextState = new TestGameState(game);
+        }
+        if (game.getClickedChipStack() != null) {
+            if (game.getClickedChipStack() != Color.ANY) {
+                game.takeChip(game.getClickedChipStack());
+                nextState = new TestGameState(game);
+            }
         }
     }
 

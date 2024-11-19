@@ -44,7 +44,7 @@ public class Hand {
     private Price getCardTotal() {
         Price total = new Price();
         for (CardStack stack : cards.values()) {
-            total.plus(stack.getValue());
+            if (stack.getColor() != Color.ANY) total.plus(stack.getValue());
         }
         return total;
     }

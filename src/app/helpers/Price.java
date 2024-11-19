@@ -20,6 +20,11 @@ public class Price extends Value{
         }
     }
 
+    public Price(Map<Color, Integer> newgems) {
+        this.gems = new HashMap<>();
+        gems.putAll(newgems);
+    }
+
     @Override
     public Map<Color, Integer> getGems() {
         return gems;

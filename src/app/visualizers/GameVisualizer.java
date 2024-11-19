@@ -1,11 +1,13 @@
 package app.visualizers;
 
+import app.constants.Color;
 import app.constants.ObjectLocations;
 import app.game.Player;
 import app.objects.Card;
 import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
+import app.visualizers.entities.AnimatedCardMatrixEntity;
 import jGameLib.animation.Animation;
 import jGameLib.core.Entity;
 import jGameLib.core.GameState;
@@ -45,7 +47,7 @@ public class GameVisualizer {
         return cards.getCardClicked();
     }
 
-    public int getChipStackClicked() {
+    public Color getChipStackClicked() {
         return chips.getClickedChipStack();
     }
 
@@ -65,8 +67,25 @@ public class GameVisualizer {
                         }
                 ).addComponents(
                         new UIRendererRootComponent(),
-                        new ImageRendererComponent("BG images/Gameplay BG.png")
+                        new ImageRendererComponent("BG images/Gameplay Example.png")
                 );
+    }
+
+    public AnimatedCardMatrixEntity addAnimationEntities(GameState state) {
+        chips.addChipStacks(state);
+        addNobles(state);
+        new UIEntity(state)
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(new Vec2(0, 0));
+                            b.setSize(1920, 1080);
+                            b.setRenderOrder(-100);
+                        }
+                ).addComponents(
+                        new UIRendererRootComponent(),
+                        new ImageRendererComponent("BG images/Gameplay Example.png")
+                );
+        return cards.addAnimatedCards(state);
     }
 
     private void addNobles(GameState state) {

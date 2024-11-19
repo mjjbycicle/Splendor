@@ -3,9 +3,10 @@ package app.constants;
 import jGameLib.util.math.Vec2;
 
 public enum Sizes {
-    INACTIVE_CARD(75, 100),
-    ACTIVE_CARD(110, 160),
-    HOVERED_ACTIVE_CARD(130, 200),
+    INACTIVE_CARD(50, 75),
+    ACTIVE_CARD(85, 125),
+    GAME_CARD(110, 160),
+    HOVERED_GAME_CARD(130, 200),
     NOBLE(150, 150),
     INACTIVE_CHIP(40, 40),
     ACTIVE_CHIP(75, 75);

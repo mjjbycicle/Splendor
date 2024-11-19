@@ -22,11 +22,9 @@ import java.util.List;
 
 public class ChipStackEntity extends UIEntity {
     private boolean isHovered = false;
-    private final Vec2 loc;
 
     public ChipStackEntity(GameState state, ChipStack stack, int i, List<Boolean> clickedList, Vec2 loc, Vec2 size, boolean gray) {
         super(state);
-        this.loc = loc;
         super.withBoundingBox(
                 b -> {
                     b.setAbsolutePosition(loc);
@@ -53,16 +51,13 @@ public class ChipStackEntity extends UIEntity {
                     new UserInputHandlerComponent() {
                         @Override
                         protected void onMouseDown(MouseEvent me) {
-                            if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
-                                clickedList.set(i, true);
-                            }
+                            if (isHovered) clickedList.set(i, true);
+                            else clickedList.set(i, false);
                         }
 
                         @Override
                         protected void onMouseUp(MouseEvent me) {
-                            if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
-                                clickedList.set(i, false);
-                            }
+                            clickedList.set(i, false);
                         }
 
                         @Override

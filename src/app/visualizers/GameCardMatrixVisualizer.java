@@ -2,6 +2,7 @@ package app.visualizers;
 
 import app.objects.Card;
 import app.objects.CardDeck;
+import app.visualizers.entities.AnimatedCardMatrixEntity;
 import app.visualizers.entities.CardMatrixEntity;
 import jGameLib.core.GameState;
 import jGameLib.util.Pair;
@@ -45,6 +46,15 @@ public class GameCardMatrixVisualizer {
         for (CardDeck deck : decks) {
             deck.addAllEntities(state);
         }
+    }
+
+    public AnimatedCardMatrixEntity addAnimatedCards(GameState state) {
+        AnimatedCardMatrixEntity cards = new AnimatedCardMatrixEntity(state, cardMatrix);
+        cards.addCards(state);
+        for (CardDeck deck : decks) {
+            deck.addAllEntities(state);
+        }
+        return cards;
     }
 
     public Pair<Integer, Integer> getIndexClicked() {

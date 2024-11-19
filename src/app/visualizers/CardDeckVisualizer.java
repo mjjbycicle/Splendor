@@ -25,7 +25,7 @@ public class CardDeckVisualizer {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
-                            b.setSize(Sizes.ACTIVE_CARD.size);
+                            b.setSize(Sizes.GAME_CARD.size);
                         }
                 )
                 .addComponents(
