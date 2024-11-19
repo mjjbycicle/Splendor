@@ -14,8 +14,15 @@ public class Player {
     public Player(int id) {
         this.id = id;
         hand = new Hand();
-        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles);
+        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles, hand::getPoints);
         roundOrder = id;
+    }
+
+    private Player(Hand newHand, int id, int roundOrder) {
+        this.hand = newHand;
+        this.id = id;
+        this.roundOrder = roundOrder;
+        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles, hand::getPoints);
     }
 
     public void addPlayer(GameState state) {
@@ -29,5 +36,9 @@ public class Player {
     public void advancePlayer() {
         roundOrder++;
         roundOrder %= 4;
+    }
+
+    public Player createClone() {
+        return new Player(this.hand.createClone(), this.id, this.roundOrder);
     }
 }

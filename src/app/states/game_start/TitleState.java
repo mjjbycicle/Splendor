@@ -1,4 +1,4 @@
-package app.states;
+package app.states.game_start;
 
 import app.constants.Styles;
 import app.constants.FinalLocation;
@@ -12,17 +12,8 @@ import java.awt.*;
 import java.util.Iterator;
 
 public class TitleState extends GameState {
-    // instantiate all objects
-    // text objects, image objects, etc
-
-    // also instantiate the next state but don't define it
     private GameState nextState;
 
-    /**
-     * constructor for the state
-     * you can have it take some parameters,
-     * such as a reference to a game object that is passed between several states
-     */
     public TitleState() {
         new ButtonEntity(
                 this,

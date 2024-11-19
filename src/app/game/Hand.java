@@ -116,4 +116,44 @@ public class Hand {
     public boolean canReserve() {
         return cards.get(Color.ANY).getCards().size() < 3;
     }
+
+    public int getPoints() {
+        int res = 0;
+        for (Noble noble : nobles) {
+            res += 3;
+        }
+        for (CardStack stack : cards.values()) {
+            if (stack.getColor() != Color.ANY) {
+                for (Card card : stack.getCards()) {
+                    res += card.getPoints();
+                }
+            }
+        }
+        return res;
+    }
+
+    public Hand createClone() {
+        Hand res = new Hand();
+        cloneNobles(res.nobles);
+        cloneChips(res.chips);
+        cloneCards(res.cards);
+        return res;
+    }
+
+    private void cloneNobles(List<Noble> newNobles) {
+        newNobles.clear();
+        newNobles.addAll(nobles);
+    }
+
+    private void cloneChips(Map<Color, ChipStack> newChips) {
+        for (Map.Entry<Color, ChipStack> entry : chips.entrySet()) {
+            newChips.put(entry.getKey(), chips.get(entry.getKey()).createClone());
+        }
+    }
+
+    private void cloneCards(Map<Color, CardStack> newChips) {
+        for (Map.Entry<Color, CardStack> entry : cards.entrySet()) {
+            newChips.put(entry.getKey(), cards.get(entry.getKey()).createClone());
+        }
+    }
 }

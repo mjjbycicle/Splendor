@@ -122,4 +122,36 @@ public class Game {
     public Pair<Integer, Integer> getClickedIndex() {
         return visualizer.getClickedIndex();
     }
+
+    public Game createClone() {
+        Game res = new Game();
+        clonePlayers(res.players);
+        cloneDecks(res.decks);
+        cloneNobles(res.nobles);
+        cloneChips(res.chipStacks);
+        return res;
+    }
+
+    private void clonePlayers(List<Player> newPlayers) {
+        for (int i = 0; i < players.size(); i++) {
+            newPlayers.set(i, players.get(i).createClone());
+        }
+    }
+
+    private void cloneDecks(List<CardDeck> newDecks) {
+        for (int i = 0; i < decks.size(); i++) {
+            newDecks.set(i, decks.get(i).createClone());
+        }
+    }
+
+    private void cloneNobles(List<Noble> newNobles) {
+        newNobles.clear();
+        newNobles.addAll(nobles);
+    }
+
+    private void cloneChips(List<ChipStack> newChips) {
+        for (int i = 0; i < chipStacks.size(); i++) {
+            newChips.set(i, chipStacks.get(i).createClone());
+        }
+    }
 }

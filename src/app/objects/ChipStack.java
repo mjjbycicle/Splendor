@@ -39,4 +39,13 @@ public class ChipStack implements Comparable<ChipStack> {
     public int compareTo(@NotNull ChipStack o) {
         return color.getNumVal() - o.color.getNumVal();
     }
+
+    public ChipStack createClone() {
+        return new ChipStack(
+                new SingleValue(
+                        value.getColor(),
+                        value.getNum()
+                )
+        );
+    }
 }

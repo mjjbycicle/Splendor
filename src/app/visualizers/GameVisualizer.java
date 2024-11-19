@@ -67,13 +67,16 @@ public class GameVisualizer {
                         }
                 ).addComponents(
                         new UIRendererRootComponent(),
-                        new ImageRendererComponent("BG images/Gameplay Example.png")
+                        new ImageRendererComponent("BG images/Gameplay BG.png")
                 );
     }
 
     public AnimatedCardMatrixEntity addAnimationEntities(GameState state) {
         chips.addChipStacks(state);
         addNobles(state);
+        for (Player player : players) {
+            player.addPlayer(state);
+        }
         new UIEntity(state)
                 .withBoundingBox(
                         b -> {
@@ -83,7 +86,7 @@ public class GameVisualizer {
                         }
                 ).addComponents(
                         new UIRendererRootComponent(),
-                        new ImageRendererComponent("BG images/Gameplay Example.png")
+                        new ImageRendererComponent("BG images/Gameplay BG.png")
                 );
         return cards.addAnimatedCards(state);
     }

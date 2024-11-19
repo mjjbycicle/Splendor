@@ -32,4 +32,15 @@ public class CardDeck {
     public void addAllEntities(GameState state) {
         CardDeckVisualizer.addAllEntities(tier, state);
     }
+
+    public CardDeck createClone() {
+        CardDeck res = new CardDeck(tier);
+        res.setCards(this.cards);
+        return res;
+    }
+
+    private void setCards(List<Card> newCards) {
+        cards.clear();
+        cards.addAll(newCards);
+    }
 }

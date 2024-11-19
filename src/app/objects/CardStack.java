@@ -40,4 +40,10 @@ public class CardStack implements Comparable<CardStack> {
     public int compareTo(@NotNull CardStack o) {
         return color.getNumVal() - o.getColor().getNumVal();
     }
+
+    public CardStack createClone() {
+        CardStack res = new CardStack(color);
+        res.cards.addAll(this.cards);
+        return res;
+    }
 }

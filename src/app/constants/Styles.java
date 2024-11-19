@@ -26,4 +26,6 @@ public class Styles {
     public static TextStyle inactiveNameText = builder.setFontSize(45f).get();
 
     public static TextStyle activeNameText = builder.setFontSize(60f).get();
+
+    public static TextStyle buttonText = builder.setFontSize(30f).get();
 }

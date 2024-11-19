@@ -1,4 +1,4 @@
-package app.states;
+package app.states.game_start;
 
 import app.constants.Styles;
 import app.constants.FinalLocation;

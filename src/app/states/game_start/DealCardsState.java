@@ -1,6 +1,8 @@
-package app.states;
+package app.states.game_start;
 
 import app.game.Game;
+import app.states.test.TestGameState;
+import app.states.turn.TurnStartedState;
 import app.visualizers.entities.AnimatedCardMatrixEntity;
 import jGameLib.core.GameState;
 
@@ -29,6 +31,6 @@ public class DealCardsState extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        return iteratorOver(new TestGameState(game));
+        return iteratorOver(new TurnStartedState(game));
     }
 }

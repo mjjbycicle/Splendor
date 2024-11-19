@@ -13,26 +13,29 @@ import jGameLib.ui2d.utils.TextRendererComponent;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.IntSupplier;
 
 public class PlayerVisualizer {
     private final HandVisualizer hand;
+    private final IntSupplier points;
     private final int id;
 
-    public PlayerVisualizer(int id, Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles) {
+    public PlayerVisualizer(int id, Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles, IntSupplier points) {
         hand = new HandVisualizer(chips, cards, nobles);
+        this.points = points;
         this.id = id;
     }
 
     private TextRendererComponent getInactiveNameComponent() {
         return new TextRendererComponent(
-                "player " + id,
+                "player " + id + ": " + points.getAsInt(),
                 Styles.inactiveNameText
         );
     }
 
     private TextRendererComponent getActiveNameComponent() {
         return new TextRendererComponent(
-                "player " + id,
+                "player " + id + ": " + points.getAsInt(),
                 Styles.activeNameText
         );
     }
