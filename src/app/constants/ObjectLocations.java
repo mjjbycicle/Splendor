@@ -16,7 +16,7 @@ public enum ObjectLocations {
     public Vec2 getInactiveLocation(int order, Color color, int index) throws Exception {
         Vec2 baseLocation;
         switch (this) {
-            case INACTIVE_PLAYER_CARDS -> baseLocation = new Vec2(500, -375);
+            case INACTIVE_PLAYER_CARDS -> baseLocation = new Vec2(500, -475);
             case INACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(500, -300);
             default -> throw new Exception("Attempting to get inactive location of an active location");
         }

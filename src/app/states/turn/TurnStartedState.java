@@ -6,6 +6,7 @@ import app.objects.Card;
 import app.states.test.TestGameState;
 import jGameLib.core.GameState;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class TurnStartedState extends GameState {
@@ -17,6 +18,11 @@ public class TurnStartedState extends GameState {
         this.game = game;
         prevGame = game.createClone();
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
+        game.visualizer.useGrayStacks(
+                Arrays.asList(
+                        false, false, false, false, false, true
+                )
+        );
         game.addGame(this);
     }
 
@@ -27,7 +33,6 @@ public class TurnStartedState extends GameState {
             if (game.getActivePlayer().hand.canBuyCard(clickedCard)) {
                 game.addChips(game.getActivePlayer().hand.buyCard(clickedCard));
                 game.replaceCard(game.getClickedIndex());
-                game.visualizer.cancelGrayCards();
             }
             else if (game.getActivePlayer().hand.canReserve()) {
                 game.takeAnyChip();
@@ -36,10 +41,11 @@ public class TurnStartedState extends GameState {
             }
             nextState = new TurnFinishedState(game, prevGame);
         }
-        if (game.getClickedChipStack() != null) {
-            if (game.getClickedChipStack() != Color.ANY) {
-                game.takeChip(game.getClickedChipStack());
-                nextState = new TestGameState(game);
+        Color clicked = game.getClickedChipStack();
+        if (clicked != null) {
+            if (clicked != Color.ANY) {
+                game.takeChip(clicked);
+                nextState = new TurnOneChipTaken(game, prevGame, clicked);
             }
         }
     }
@@ -51,7 +57,6 @@ public class TurnStartedState extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        game.visualizer.cancelGrayCards();
-        return iteratorOver(nextState);
+        return iteratorOver(new BetweenMovesState(game, nextState, 10));
     }
 }

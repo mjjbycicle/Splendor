@@ -8,8 +8,6 @@ import app.objects.CardDeck;
 import app.objects.ChipStack;
 import app.objects.Noble;
 import app.visualizers.entities.AnimatedCardMatrixEntity;
-import jGameLib.animation.Animation;
-import jGameLib.core.Entity;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
@@ -126,12 +124,20 @@ public class GameVisualizer {
         }
     }
 
+    public void useGrayStacks(List<Boolean> grayStacks) {
+        chips.useGrayStacks(grayStacks);
+    }
+
     public void cancelGrayCards() {
         for (var i : grayCards) {
             for (int j = 0; j < 4; j++) {
                 i.set(j, false);
             }
         }
+    }
+
+    public void cancelGrayStacks() {
+        chips.cancelGrayStacks();
     }
 
     public void replaceCard(Pair<Integer, Integer> index, Card newCard) {

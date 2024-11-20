@@ -128,6 +128,19 @@ public class Game {
         getActivePlayer().hand.addChips(new SingleValue(color, 1));
     }
 
+    public boolean canTakeChip(Color color, boolean second) {
+        for (ChipStack stack : chipStacks) {
+            if (stack.getValue().getColor() == color) {
+                if (second) {
+                    return stack.getValue().getNum() >= 4;
+                } else {
+                    return stack.getValue().getNum() >= 0;
+                }
+            }
+        }
+        return false;
+    }
+
     public void replaceCard(Pair<Integer, Integer> index) {
         Card newCard = decks.get(index.a()).drawTopCard();
         visualizer.replaceCard(index, newCard);
@@ -177,5 +190,13 @@ public class Game {
                 newCards.get(i).set(j, cardMatrix.get(i).get(j));
             }
         }
+    }
+
+    public List<Boolean> canTakeSecond() {
+        List<Boolean> res = new ArrayList<>();
+        for (ChipStack chipStack : chipStacks) {
+            res.add(!chipStack.canTakeTwo() || chipStack.getValue().getColor() == Color.ANY);
+        }
+        return res;
     }
 }

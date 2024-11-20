@@ -11,9 +11,11 @@ import java.awt.*;
 import java.util.Iterator;
 
 public class TurnFinishedState extends GameState {
+    private final Game game;
     private GameState nextState;
 
     public TurnFinishedState(Game game, Game prevGame) {
+        this.game = game;
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.addGame(this);
         new ButtonEntity(
@@ -62,6 +64,8 @@ public class TurnFinishedState extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        return iteratorOver(nextState);
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayCards();
+        return iteratorOver(new BetweenMovesState(game, nextState, 20));
     }
 }

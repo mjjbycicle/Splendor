@@ -24,7 +24,6 @@ public class TestGameState extends GameState {
             if (game.getActivePlayer().hand.canBuyCard(clickedCard)) {
                 game.addChips(game.getActivePlayer().hand.buyCard(clickedCard));
                 game.replaceCard(game.getClickedIndex());
-                game.visualizer.cancelGrayCards();
             }
             else {
                 game.takeAnyChip();

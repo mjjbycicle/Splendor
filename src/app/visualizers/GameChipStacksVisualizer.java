@@ -12,9 +12,7 @@ import jGameLib.ui2d.utils.RoundedRectRendererComponent;
 import jGameLib.util.math.Vec2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GameChipStacksVisualizer {
     private final List<ChipStack> chipStacks;
@@ -75,15 +73,13 @@ public class GameChipStacksVisualizer {
         return null;
     }
 
-    public boolean canTakeChip(int i, boolean second) {
-        if (second) {
-            return chipStacks.get(i).canTakeTwo();
-        } else {
-            return chipStacks.get(i).getValue().getNum() != 0;
+    public void useGrayStacks(List<Boolean> gray) {
+        for (int i = 0; i < grayStacks.size(); i++) {
+            grayStacks.set(i, gray.get(i));
         }
     }
 
-    public void takeChip(int i) {
-        chipStacks.get(i).takeOne();
+    public void cancelGrayStacks() {
+        grayStacks.replaceAll(gray -> false);
     }
 }
