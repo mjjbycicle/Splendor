@@ -1,8 +1,12 @@
 package app.states.turn;
 
 import app.constants.Color;
+import app.constants.FinalLocation;
+import app.constants.Styles;
 import app.game.Game;
 import jGameLib.core.GameState;
+import jGameLib.ui2d.rendering.UIRendererRootComponent;
+import jGameLib.ui2d.utils.ButtonEntity;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -21,14 +25,33 @@ public class TurnOneChipTaken extends GameState {
         game.visualizer.useGrayStacks(
                 Arrays.asList(
                         prevColor == Color.RED && canTakeSecond.get(0),
-                        prevColor == Color.BLUE || prevColor2 == Color.BLUE,
-                        prevColor1 == Color.GREEN || prevColor2 == Color.GREEN,
-                        prevColor1 == Color.BLACK || prevColor2 == Color.BLACK,
-                        prevColor1 == Color.WHITE || prevColor2 == Color.WHITE,
+                        prevColor == Color.BLUE && canTakeSecond.get(1),
+                        prevColor == Color.GREEN && canTakeSecond.get(2),
+                        prevColor == Color.BLACK && canTakeSecond.get(3),
+                        prevColor == Color.WHITE && canTakeSecond.get(4),
                         true
                 )
         );
+        game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.addGame(this);
+        new ButtonEntity(
+                this,
+                "cancel move",
+                new java.awt.Color(0, 0, 0, 200),
+                new java.awt.Color(255, 200, 0, 200),
+                Styles.buttonText
+        ).addClickListener(
+                (entity, me) -> {
+                    nextState = new TurnStartedState(prevGame);
+                }
+        ).withBoundingBox(
+                b -> {
+                    b.setAbsolutePosition(FinalLocation.CANCEL_BUTTON.getLocation());
+                    b.setRenderOrder(99);
+                }
+        ).addComponents(
+                new UIRendererRootComponent()
+        );
     }
 
     @Override
@@ -39,7 +62,11 @@ public class TurnOneChipTaken extends GameState {
                 if (prevColor == game.getClickedChipStack()) {
                     if (game.canTakeChip(clicked, true)) {
                         game.takeChip(clicked);
-                        nextState = new TurnFinishedState(game, prevGame);
+                        if (game.getActivePlayer().hand.overTenChips()) {
+                            nextState = new TurnRemoveCards(game, prevGame);
+                        } else {
+                            nextState = new TurnFinishedState(game, prevGame);
+                        }
                     }
                 } else if (game.canTakeChip(clicked, false)) {
                     game.takeChip(clicked);

@@ -74,18 +74,15 @@ public class ChipStackEntity extends UIEntity {
                         }
                     }
             );
+        } else {
+            super.addComponent(
+                    new UserInputHandlerComponent() {
+                        @Override
+                        protected void update(UserInputState state) {
+                            clickedList.set(i, false);
+                        }
+                    }
+            );
         }
-    }
-
-    public ChipStackEntity(GameState state, ChipStack stack, Vec2 loc, Vec2 size, boolean gray) {
-        this(
-                state,
-                stack,
-                0,
-                Arrays.asList(false),
-                loc,
-                size,
-                gray
-        );
     }
 }

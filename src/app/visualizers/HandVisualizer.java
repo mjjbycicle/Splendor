@@ -12,24 +12,31 @@ import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class HandVisualizer {
     private final Map<Color, ChipStack> chips;
     private final Map<Color, CardStack> cards;
+    private final List<Boolean> clickedList;
     private final List<Noble> nobles;
 
     HandVisualizer(Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles) {
         this.chips = chips;
         this.cards = cards;
         this.nobles = nobles;
+        clickedList = new ArrayList<>();
+        for (int i = 0; i < chips.size(); i++) clickedList.add(false);
     }
 
     private void addInactiveChipEntities(int order, GameState state) {
         for (ChipStack stack : chips.values()) {
             try {
-                new ChipStackEntity(state, stack,
+                new ChipStackEntity(
+                        state, stack,
+                        stack.getValue().getColor().getNumVal(),
+                        clickedList,
                         ObjectLocations.INACTIVE_PLAYER_CHIPS.getInactiveLocation(order, stack.getValue().getColor(), 0),
                         Sizes.INACTIVE_CHIP.size,
                         false
@@ -43,7 +50,10 @@ public class HandVisualizer {
     private void addActiveChipEntities(GameState state) {
         for (ChipStack stack : chips.values()) {
             try {
-                new ChipStackEntity(state, stack,
+                new ChipStackEntity(
+                        state, stack,
+                        stack.getValue().getColor().getNumVal(),
+                        clickedList,
                         ObjectLocations.ACTIVE_PLAYER_CHIPS.getActiveLocation(stack.getValue().getColor(), 0),
                         Sizes.ACTIVE_CHIP.size,
                         false
@@ -129,5 +139,14 @@ public class HandVisualizer {
         addActiveChipEntities(state);
         addActiveCardEntities(state);
         addActiveNobleEntities(state);
+    }
+
+    public Color getClickedChipStack() {
+        for (int i = 0; i < clickedList.size(); i++) {
+            if (clickedList.get(i)) {
+                if (chips.get(Color.getColorFromNum(i)).getValue().getNum() != 0) return chips.get(Color.getColorFromNum(i)).getValue().getColor();
+            }
+        }
+        return null;
     }
 }

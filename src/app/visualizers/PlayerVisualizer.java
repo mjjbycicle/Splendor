@@ -65,4 +65,8 @@ public class PlayerVisualizer {
                         getActiveNameComponent()
                 ).cast();
     }
+
+    public Color getClickedChipStack() {
+        return hand.getClickedChipStack();
+    }
 }
