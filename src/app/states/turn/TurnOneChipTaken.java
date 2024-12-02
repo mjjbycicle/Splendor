@@ -16,6 +16,7 @@ public class TurnOneChipTaken extends GameState {
     private final Game game, prevGame;
     private final Color prevColor;
     private GameState nextState;
+    private int framesAfterNext = 0;
 
     public TurnOneChipTaken(Game game, Game prevGame, Color prevColor) {
         this.game = game;
@@ -74,15 +75,18 @@ public class TurnOneChipTaken extends GameState {
                 }
             }
         }
+        if (nextState != null) framesAfterNext++;
     }
 
     @Override
     public boolean isFinished() {
-        return nextState != null;
+        return nextState != null && framesAfterNext >= 10;
     }
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        return iteratorOver(new BetweenMovesState(game, nextState, 10));
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
+        return iteratorOver(nextState);
     }
 }

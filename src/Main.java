@@ -1,8 +1,5 @@
-import app.constants.Color;
 import app.game.Game;
-import app.helpers.Price;
-import app.states.game_start.DealCardsState;
-import app.states.test.TestState;
+import app.states.game_start.TitleState;
 import jGameLib.core.StateMachine;
 import jGameLib.ui2d.GameWindow;
 import jGameLib.ui2d.input.UserInputSystem;
@@ -17,6 +14,6 @@ public class Main {
 
         StateMachine.globalInstance.addSystem(new UserInputSystem(a.canvas));
         StateMachine.globalInstance.addSystem(new UIRendererSystem(a.canvas));
-        StateMachine.globalInstance.run(new DealCardsState(game));
+        StateMachine.globalInstance.run(new TitleState());
     }
 }

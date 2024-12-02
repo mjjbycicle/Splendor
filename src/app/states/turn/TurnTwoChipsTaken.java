@@ -15,6 +15,7 @@ public class TurnTwoChipsTaken extends GameState {
     private final Game game, prevGame;
     private final Color prevColor1, prevColor2;
     private GameState nextState;
+    private int framesAfterNext = 0;
 
     public TurnTwoChipsTaken(Game game, Game prevGame, Color prevColor1, Color prevColor2) {
         this.game = game;
@@ -58,6 +59,7 @@ public class TurnTwoChipsTaken extends GameState {
     public void onUpdate() {
         Color clicked = game.getClickedChipStack();
         if (clicked != null) {
+            System.out.println(clicked.name());
             if (clicked != Color.ANY && clicked != prevColor1 && clicked != prevColor2) {
                 game.takeChip(clicked);
                 if (game.getActivePlayer().hand.overTenChips()) {
@@ -67,15 +69,18 @@ public class TurnTwoChipsTaken extends GameState {
                 }
             }
         }
+        if (nextState != null) framesAfterNext++;
     }
 
     @Override
     public boolean isFinished() {
-        return nextState != null;
+        return nextState != null && framesAfterNext >= 10;
     }
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        return iteratorOver(new BetweenMovesState(game, nextState, 10));
+        game.visualizer.cancelGrayStacks();
+        game.visualizer.cancelGrayStacks();
+        return iteratorOver(nextState);
     }
 }

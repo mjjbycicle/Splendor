@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class TurnFinishedState extends GameState {
     private final Game game;
     private GameState nextState;
+    private int framesAfterNext = 0;
 
     public TurnFinishedState(Game game, Game prevGame) {
         this.game = game;
@@ -58,14 +59,19 @@ public class TurnFinishedState extends GameState {
     }
 
     @Override
+    public void onUpdate() {
+        if (nextState != null) framesAfterNext++;
+    }
+
+    @Override
     public boolean isFinished() {
-        return nextState != null;
+        return nextState != null && framesAfterNext >= 20;
     }
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
         game.visualizer.cancelGrayCards();
         game.visualizer.cancelGrayCards();
-        return iteratorOver(new BetweenMovesState(game, nextState, 20));
+        return iteratorOver(nextState);
     }
 }

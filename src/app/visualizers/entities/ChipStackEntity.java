@@ -47,6 +47,7 @@ public class ChipStackEntity extends UIEntity {
                 new UIRendererRootComponent(),
                 new HoverDetectionComponent()
         );
+        if (gray) clickedList.set(i, false);
         if (!(gray && stack.getValue().getNum() > 0)) {
             super.addComponent(
                     new UserInputHandlerComponent() {
