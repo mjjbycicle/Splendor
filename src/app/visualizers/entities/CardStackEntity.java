@@ -16,15 +16,20 @@ import jGameLib.util.math.Vec2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class CardStackEntity extends UIEntity {
     private boolean isOneHovered;
     private final Vec2 loc;
     private final List<Boolean> clickedList = new ArrayList<>();
     private final List<Card> cards;
+    private final CardStack stack;
 
-    public CardStackEntity(GameState state, CardStack stack, int order) {
+    public CardStackEntity(GameState state, CardStack stack, int order, Function<Card, Boolean> canBuyCard) {
         super(state);
+        this.stack = stack;
         cards = stack.getCards();
         try {
             loc = ObjectLocations.INACTIVE_PLAYER_CARDS.getInactiveLocation(order, stack.getColor(), 0);
@@ -46,7 +51,7 @@ public class CardStackEntity extends UIEntity {
                                             x,
                                             () -> isOneHovered,
                                             ObjectLocations.INACTIVE_PLAYER_CARDS.getInactiveLocation(order, stack.getColor(), x),
-                                            stack.getColor() == Color.ANY,
+                                            stack.getColor() == Color.ANY && !canBuyCard.apply(stack.getCards().get(x)),
                                             false,
                                             clickedList
                                     ).getBoundingBox()
@@ -75,8 +80,9 @@ public class CardStackEntity extends UIEntity {
         );
     }
 
-    public CardStackEntity(GameState state, CardStack stack) {
+    public CardStackEntity(GameState state, CardStack stack, Function<Card, Boolean> canBuyCard) {
         super(state);
+        this.stack = stack;
         cards = stack.getCards();
         try {
             loc = ObjectLocations.ACTIVE_PLAYER_CARDS.getActiveLocation(stack.getColor(), 0);
@@ -98,7 +104,7 @@ public class CardStackEntity extends UIEntity {
                                             x,
                                             () -> isOneHovered,
                                             ObjectLocations.ACTIVE_PLAYER_CARDS.getActiveLocation(stack.getColor(), x),
-                                            stack.getColor() == Color.ANY,
+                                            stack.getColor() == Color.ANY && !canBuyCard.apply(stack.getCards().get(x)),
                                             true,
                                             clickedList
                                     ).getBoundingBox()
@@ -132,6 +138,7 @@ public class CardStackEntity extends UIEntity {
             if (clickedList.get(i)) {
                 Card res = cards.get(i);
                 clickedList.remove(i);
+                stack.removeCard(res);
                 return res;
             }
         }

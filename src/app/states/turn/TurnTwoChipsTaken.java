@@ -57,19 +57,22 @@ public class TurnTwoChipsTaken extends GameState {
 
     @Override
     public void onUpdate() {
-        Color clicked = game.getClickedChipStack();
-        if (clicked != null) {
-            System.out.println(clicked.name());
-            if (clicked != Color.ANY && clicked != prevColor1 && clicked != prevColor2) {
-                game.takeChip(clicked);
-                if (game.getActivePlayer().hand.overTenChips()) {
-                    nextState = new TurnRemoveCards(game, prevGame);
-                } else {
-                    nextState = new TurnFinishedState(game, prevGame);
+        if (nextState == null) {
+            Color clicked = game.getClickedChipStack();
+            if (clicked != null) {
+                System.out.println(clicked.name());
+                if (clicked != Color.ANY && clicked != prevColor1 && clicked != prevColor2) {
+                    game.takeChip(clicked);
+                    if (game.getActivePlayer().hand.overTenChips()) {
+                        nextState = new TurnRemoveChips(game, prevGame);
+                    } else {
+                        nextState = new TurnFinishedState(game, prevGame);
+                    }
                 }
             }
+        } else {
+            framesAfterNext++;
         }
-        if (nextState != null) framesAfterNext++;
     }
 
     @Override

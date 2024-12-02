@@ -11,11 +11,12 @@ import jGameLib.ui2d.utils.ButtonEntity;
 
 import java.util.Iterator;
 
-public class TurnRemoveCards extends GameState {
+public class TurnRemoveChips extends GameState {
     private final Game game, prevGame;
     private GameState nextState;
+    private int framesAfterNext = 0;
 
-    public TurnRemoveCards(Game game, Game prevGame) {
+    public TurnRemoveChips(Game game, Game prevGame) {
         this.game = game;
         this.prevGame = prevGame;
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
@@ -42,19 +43,23 @@ public class TurnRemoveCards extends GameState {
 
     @Override
     public void onUpdate() {
-        Color clicked = game.getActivePlayer().visualizer.getClickedChipStack();
-        if (clicked != null) {
-            game.getActivePlayer().hand.removeChips(
-                    new SingleValue(
-                            clicked,
-                            1
-                    )
-            );
-            if (game.getActivePlayer().hand.overTenChips()) {
-                nextState = new TurnRemoveCards(game, prevGame);
-            } else {
-                nextState = new TurnFinishedState(game, prevGame);
+        if (nextState == null) {
+            Color clicked = game.getActivePlayer().visualizer.getClickedChipStack();
+            if (clicked != null) {
+                game.getActivePlayer().hand.removeChips(
+                        new SingleValue(
+                                clicked,
+                                1
+                        )
+                );
+                if (game.getActivePlayer().hand.overTenChips()) {
+                    nextState = new TurnRemoveChips(game, prevGame);
+                } else {
+                    nextState = new TurnFinishedState(game, prevGame);
+                }
             }
+        } else {
+            framesAfterNext++;
         }
     }
 

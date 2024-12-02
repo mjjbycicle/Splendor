@@ -29,27 +29,36 @@ public class TurnStartedState extends GameState {
 
     @Override
     public void onUpdate() {
-        Card clickedCard = game.visualizer.getCardClicked();
-        if (clickedCard != null) {
-            if (game.getActivePlayer().hand.canBuyCard(clickedCard)) {
-                game.addChips(game.getActivePlayer().hand.buyCard(clickedCard));
-                game.replaceCard(game.getClickedIndex());
+        if (nextState == null) {
+            Card clickedCard = game.visualizer.getCardClicked();
+            if (clickedCard != null) {
+                if (game.getActivePlayer().hand.canBuyCard(clickedCard)) {
+                    game.addChips(game.getActivePlayer().hand.buyCard(clickedCard));
+                    game.replaceCard(game.getClickedIndex());
+                } else if (game.getActivePlayer().hand.canReserve()) {
+                    game.takeAnyChip();
+                    game.getActivePlayer().hand.addReservedCard(clickedCard);
+                    game.replaceCard(game.getClickedIndex());
+                }
+                nextState = new TurnFinishedState(game, prevGame);
             }
-            else if (game.getActivePlayer().hand.canReserve()) {
-                game.takeAnyChip();
-                game.getActivePlayer().hand.addReservedCard(clickedCard);
-                game.replaceCard(game.getClickedIndex());
+            Color clicked = game.getClickedChipStack();
+            if (clicked != null) {
+                if (clicked != Color.ANY) {
+                    game.takeChip(clicked);
+                    nextState = new TurnOneChipTaken(game, prevGame, clicked);
+                }
             }
-            nextState = new TurnFinishedState(game, prevGame);
+            Card clickedReservedCard = game.getActivePlayer().visualizer.getClickedReservedCard();
+            if (clickedReservedCard != null) {
+                if (game.getActivePlayer().hand.canBuyCard(clickedReservedCard)) {
+                    game.addChips(game.getActivePlayer().hand.buyCard(clickedReservedCard));
+                    nextState = new TurnFinishedState(game, prevGame);
+                }
+            }
+        } else {
+            framesAfterNext++;
         }
-        Color clicked = game.getClickedChipStack();
-        if (clicked != null) {
-            if (clicked != Color.ANY) {
-                game.takeChip(clicked);
-                nextState = new TurnOneChipTaken(game, prevGame, clicked);
-            }
-        }
-        if (nextState != null) framesAfterNext++;
     }
 
     @Override

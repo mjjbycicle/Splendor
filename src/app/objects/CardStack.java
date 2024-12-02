@@ -24,6 +24,15 @@ public class CardStack implements Comparable<CardStack> {
         cards.add(card);
     }
 
+    public void removeCard(Card card) {
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getID() == card.getID()) {
+                cards.remove(i);
+                break;
+            }
+        }
+    }
+
     public List<Card> getCards() {
         return cards;
     }

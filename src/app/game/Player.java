@@ -14,7 +14,7 @@ public class Player {
     public Player(int id) {
         this.id = id;
         hand = new Hand();
-        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles, hand::getPoints);
+        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles, hand::getPoints, this);
         roundOrder = id;
     }
 
@@ -22,7 +22,7 @@ public class Player {
         this.hand = newHand;
         this.id = id;
         this.roundOrder = roundOrder;
-        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles, hand::getPoints);
+        visualizer = new PlayerVisualizer(id, hand.chips, hand.cards, hand.nobles, hand::getPoints, this);
     }
 
     public void addPlayer(GameState state) {

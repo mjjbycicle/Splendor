@@ -1,10 +1,6 @@
 package app.visualizers.entities;
 
-import app.constants.ObjectLocations;
-import app.constants.Sizes;
 import app.objects.ChipStack;
-import app.visualizers.animations.SizeAnimation;
-import jGameLib.animation.AnimationComponent;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.input.MouseEvent;
 import jGameLib.ui2d.input.UserInputHandlerComponent;
@@ -13,11 +9,8 @@ import jGameLib.ui2d.rendering.BoundingBoxComponent;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 import jGameLib.ui2d.utils.HoverDetectionComponent;
-import jGameLib.ui2d.utils.RoundedRectRendererComponent;
 import jGameLib.util.math.Vec2;
 
-import java.awt.*;
-import java.util.Arrays;
 import java.util.List;
 
 public class ChipStackEntity extends UIEntity {

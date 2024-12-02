@@ -3,6 +3,8 @@ package app.visualizers;
 import app.constants.Color;
 import app.constants.ObjectLocations;
 import app.constants.Sizes;
+import app.game.Hand;
+import app.objects.Card;
 import app.objects.CardStack;
 import app.objects.ChipStack;
 import app.objects.Noble;
@@ -13,21 +15,26 @@ import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HandVisualizer {
     private final Map<Color, ChipStack> chips;
     private final Map<Color, CardStack> cards;
+    private final Map<Color, CardStackEntity> cardStackEntities;
     private final List<Boolean> clickedList;
     private final List<Noble> nobles;
+    private final Hand hand;
 
-    HandVisualizer(Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles) {
+    HandVisualizer(Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles, Hand hand) {
         this.chips = chips;
         this.cards = cards;
         this.nobles = nobles;
+        this.hand = hand;
         clickedList = new ArrayList<>();
         for (int i = 0; i < chips.size(); i++) clickedList.add(false);
+        cardStackEntities = new HashMap<>();
     }
 
     private void addInactiveChipEntities(int order, GameState state) {
@@ -66,19 +73,27 @@ public class HandVisualizer {
 
     private void addInactiveCardEntities(int order, GameState state) {
         for (CardStack stack : cards.values()) {
-            new CardStackEntity(
-                    state,
-                    stack,
-                    order
+            cardStackEntities.put(
+                    stack.getColor(),
+                    new CardStackEntity(
+                            state,
+                            stack,
+                            order,
+                            hand::canBuyCard
+                    )
             );
         }
     }
 
     private void addActiveCardEntities(GameState state) {
         for (CardStack stack : cards.values()) {
-            new CardStackEntity(
-                    state,
-                    stack
+            cardStackEntities.put(
+                    stack.getColor(),
+                    new CardStackEntity(
+                            state,
+                            stack,
+                            hand::canBuyCard
+                    )
             );
         }
     }
@@ -144,9 +159,14 @@ public class HandVisualizer {
     public Color getClickedChipStack() {
         for (int i = 0; i < clickedList.size(); i++) {
             if (clickedList.get(i)) {
-                if (chips.get(Color.getColorFromNum(i)).getValue().getNum() != 0) return chips.get(Color.getColorFromNum(i)).getValue().getColor();
+                if (chips.get(Color.getColorFromNum(i)).getValue().getNum() != 0)
+                    return chips.get(Color.getColorFromNum(i)).getValue().getColor();
             }
         }
         return null;
+    }
+
+    public Card getClickedReservedCard() {
+        return cardStackEntities.get(Color.ANY).getClickedCard();
     }
 }

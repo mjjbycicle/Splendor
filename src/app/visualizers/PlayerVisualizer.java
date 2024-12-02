@@ -3,6 +3,8 @@ package app.visualizers;
 import app.constants.Styles;
 import app.constants.Color;
 import app.constants.NameLocations;
+import app.game.Player;
+import app.objects.Card;
 import app.objects.CardStack;
 import app.objects.ChipStack;
 import app.objects.Noble;
@@ -19,9 +21,11 @@ public class PlayerVisualizer {
     private final HandVisualizer hand;
     private final IntSupplier points;
     private final int id;
+    private final Player player;
 
-    public PlayerVisualizer(int id, Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles, IntSupplier points) {
-        hand = new HandVisualizer(chips, cards, nobles);
+    public PlayerVisualizer(int id, Map<Color, ChipStack> chips, Map<Color, CardStack> cards, List<Noble> nobles, IntSupplier points, Player player) {
+        this.player = player;
+        hand = new HandVisualizer(chips, cards, nobles, player.hand);
         this.points = points;
         this.id = id;
     }
@@ -68,5 +72,9 @@ public class PlayerVisualizer {
 
     public Color getClickedChipStack() {
         return hand.getClickedChipStack();
+    }
+
+    public Card getClickedReservedCard() {
+        return hand.getClickedReservedCard();
     }
 }

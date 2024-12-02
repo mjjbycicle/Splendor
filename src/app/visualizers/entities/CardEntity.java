@@ -182,7 +182,7 @@ public class CardEntity extends UIEntity {
                     @Override
                     public void onMouseUp(MouseEvent me) {
                         if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
-                            clickedList.set(i, false);
+                            if (clickedList.size() > i) clickedList.set(i, false);
                         }
                     }
                 }
