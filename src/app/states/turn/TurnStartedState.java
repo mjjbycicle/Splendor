@@ -13,6 +13,7 @@ public class TurnStartedState extends GameState {
     private final Game game;
     private final Game prevGame;
     private GameState nextState;
+    private int framesAfterNext = 0;
 
     public TurnStartedState(Game game) {
         this.game = game;
@@ -48,15 +49,18 @@ public class TurnStartedState extends GameState {
                 nextState = new TurnOneChipTaken(game, prevGame, clicked);
             }
         }
+        if (nextState != null) framesAfterNext++;
     }
 
     @Override
     public boolean isFinished() {
-        return nextState != null;
+        return nextState != null && framesAfterNext >= 10;
     }
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        return iteratorOver(new BetweenMovesState(game, nextState, 10));
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
+        return iteratorOver(nextState);
     }
 }

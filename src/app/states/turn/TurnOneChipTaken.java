@@ -12,6 +12,7 @@ public class TurnOneChipTaken extends GameState {
     private final Game game, prevGame;
     private final Color prevColor;
     private GameState nextState;
+    private int framesAfterNext = 0;
 
     public TurnOneChipTaken(Game game, Game prevGame, Color prevColor) {
         this.game = game;
@@ -21,13 +22,14 @@ public class TurnOneChipTaken extends GameState {
         game.visualizer.useGrayStacks(
                 Arrays.asList(
                         prevColor == Color.RED && canTakeSecond.get(0),
-                        prevColor == Color.BLUE || prevColor2 == Color.BLUE,
-                        prevColor1 == Color.GREEN || prevColor2 == Color.GREEN,
-                        prevColor1 == Color.BLACK || prevColor2 == Color.BLACK,
-                        prevColor1 == Color.WHITE || prevColor2 == Color.WHITE,
+                        prevColor == Color.BLUE && canTakeSecond.get(1),
+                        prevColor == Color.GREEN && canTakeSecond.get(2),
+                        prevColor == Color.BLACK && canTakeSecond.get(3),
+                        prevColor == Color.WHITE && canTakeSecond.get(4),
                         true
                 )
         );
+        game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.addGame(this);
     }
 
@@ -47,15 +49,18 @@ public class TurnOneChipTaken extends GameState {
                 }
             }
         }
+        if (nextState != null) framesAfterNext++;
     }
 
     @Override
     public boolean isFinished() {
-        return nextState != null;
+        return nextState != null && framesAfterNext >= 10;
     }
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        return iteratorOver(new BetweenMovesState(game, nextState, 10));
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
+        return iteratorOver(nextState);
     }
 }

@@ -131,7 +131,7 @@ public class CardEntity extends UIEntity {
         }
     }
 
-    public CardEntity(GameState state, Card card, int i, BooleanSupplier isOneHovered, Vec2 absLoc, boolean gray, boolean active) {
+    public CardEntity(GameState state, Card card, int i, BooleanSupplier isOneHovered, Vec2 absLoc, boolean gray, boolean active, List<Boolean> clickedList) {
         super(state);
         loc = absLoc;
         Vec2 size = active?Sizes.ACTIVE_CARD.size:Sizes.INACTIVE_CARD.size;
@@ -167,6 +167,22 @@ public class CardEntity extends UIEntity {
                                         )
                                 );
                             }
+                        }
+                    }
+
+                    @Override
+                    public void onMouseDown(MouseEvent me) {
+                        if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
+                            clickedList.set(i, true);
+                        } else {
+                            clickedList.set(i, false);
+                        }
+                    }
+
+                    @Override
+                    public void onMouseUp(MouseEvent me) {
+                        if (getComponent(HoverDetectionComponent.class).contains(me.position())) {
+                            clickedList.set(i, false);
                         }
                     }
                 }

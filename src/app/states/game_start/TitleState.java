@@ -2,6 +2,7 @@ package app.states.game_start;
 
 import app.constants.Styles;
 import app.constants.FinalLocation;
+import app.game.Game;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
@@ -17,7 +18,7 @@ public class TitleState extends GameState {
     public TitleState() {
         new ButtonEntity(
                 this,
-                "start screen",
+                "start game",
                 new Color(10, 10, 10, 100),
                 null,
                 Styles.titleText
@@ -34,7 +35,7 @@ public class TitleState extends GameState {
                 )
                 .cast(ButtonEntity.class)
                 .addClickListener((entity, me) -> {
-                    nextState = new TitleState();
+                    nextState = new DealCardsState(new Game());
                 });
 
         new ButtonEntity(
