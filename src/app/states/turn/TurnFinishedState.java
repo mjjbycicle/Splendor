@@ -3,6 +3,8 @@ package app.states.turn;
 import app.constants.FinalLocation;
 import app.constants.Styles;
 import app.game.Game;
+import app.states.game.EndScreenState;
+import app.states.game.TitleState;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 import jGameLib.ui2d.utils.ButtonEntity;
@@ -27,8 +29,12 @@ public class TurnFinishedState extends GameState {
                 Styles.buttonText
         ).addClickListener(
                 (entity, me) -> {
-                    game.advanceRound();
-                    nextState = new TurnStartedState(game);
+                    if (game.isLastRound() && game.getActivePlayer().id == 3) {
+                        nextState = new EndScreenState(game.getWinningPlayerID());
+                    } else {
+                        game.advanceRound();
+                        nextState = new TurnStartedState(game);
+                    }
                 }
         ).withBoundingBox(
                 b -> {

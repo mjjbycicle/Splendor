@@ -1,4 +1,4 @@
-package app.states.game_start;
+package app.states.game;
 
 import app.constants.Styles;
 import app.constants.FinalLocation;
@@ -7,13 +7,14 @@ import jGameLib.ui2d.rendering.UIEntity;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 import jGameLib.ui2d.utils.ButtonEntity;
 import jGameLib.ui2d.utils.ImageRendererComponent;
+import jGameLib.ui2d.utils.TextRendererComponent;
 
 import java.util.Iterator;
 
-public class RulesState extends GameState {
+public class EndScreenState extends GameState {
     private GameState nextState;
 
-    public RulesState(GameState prev, Runnable run) {
+    public EndScreenState(int winner) {
         new UIEntity(this)
                 .withBoundingBox(
                         b -> {
@@ -23,7 +24,20 @@ public class RulesState extends GameState {
                 )
                 .addComponents(
                         new UIRendererRootComponent(),
-                        new ImageRendererComponent("BG images/Rules Pic Download.png")
+                        new ImageRendererComponent("BG images/End Screen.png")
+                );
+        new UIEntity(this)
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(FinalLocation.WINNER_TEXT.getLocation());
+                        }
+                )
+                .addComponents(
+                        new TextRendererComponent(
+                                "" + winner,
+                                Styles.winnerText
+                        ),
+                        new UIRendererRootComponent()
                 );
         new ButtonEntity(
                 this,
@@ -33,8 +47,7 @@ public class RulesState extends GameState {
                 Styles.titleText)
                 .addClickListener(
                         (entity, me) -> {
-                            run.run();
-                            nextState = prev;
+                            nextState = new TitleState();
                         }
                 )
                 .withBoundingBox(

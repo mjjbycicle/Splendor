@@ -28,4 +28,6 @@ public class Styles {
     public static TextStyle activeNameText = builder.setFontSize(60f).get();
 
     public static TextStyle buttonText = builder.setFontSize(30f).get();
+
+    public static TextStyle winnerText = builder.setFontSize(120f).get();
 }

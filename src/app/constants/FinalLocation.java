@@ -21,7 +21,8 @@ public enum FinalLocation {
     ORIGIN(0, 0),
     BACK_BUTTON(775, 500),
     CONTINUE_BUTTON(400, 475),
-    CANCEL_BUTTON(575, 475);
+    CANCEL_BUTTON(575, 475),
+    WINNER_TEXT(-375, 67);
 
     private final Vec2 location;
 

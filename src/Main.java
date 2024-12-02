@@ -1,5 +1,5 @@
 import app.game.Game;
-import app.states.game_start.TitleState;
+import app.states.game.TitleState;
 import jGameLib.core.StateMachine;
 import jGameLib.ui2d.GameWindow;
 import jGameLib.ui2d.input.UserInputSystem;

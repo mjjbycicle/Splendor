@@ -118,15 +118,13 @@ public class Hand {
     }
 
     public int getPoints() {
-        int res = 0;
+        int res = 15;
         for (Noble noble : nobles) {
             res += 3;
         }
         for (CardStack stack : cards.values()) {
             if (stack.getColor() != Color.ANY) {
-                for (Card card : stack.getCards()) {
-                    res += card.getPoints();
-                }
+                res += stack.getPoints();
             }
         }
         return res;
@@ -155,5 +153,13 @@ public class Hand {
         for (Map.Entry<Color, CardStack> entry : cards.entrySet()) {
             newChips.put(entry.getKey(), cards.get(entry.getKey()).createClone());
         }
+    }
+
+    public int getNumCards() {
+        int res = 0;
+        for (CardStack stack : cards.values()) {
+            res += stack.getCards().size();
+        }
+        return res;
     }
 }

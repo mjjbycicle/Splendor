@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Player {
     public final Hand hand;
-    private final int id;
+    public final int id;
     public final PlayerVisualizer visualizer;
     private int roundOrder;
 

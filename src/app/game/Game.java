@@ -199,4 +199,23 @@ public class Game {
         }
         return res;
     }
+
+    public boolean isLastRound() {
+        for (Player player : players) {
+            if (player.hand.getPoints() >= 15) return true;
+        }
+        return false;
+    }
+
+    public int getWinningPlayerID() {
+        return players.stream().max(new Comparator<>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                int comp1 = o1.hand.getPoints() - o2.hand.getPoints();
+                if (comp1 != 0) return comp1;
+                int comp2 = o2.hand.getNumCards() - o1.hand.getNumCards();
+                return comp2;
+            }
+        }).get().id;
+    }
 }

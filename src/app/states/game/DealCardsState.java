@@ -1,7 +1,6 @@
-package app.states.game_start;
+package app.states.game;
 
 import app.game.Game;
-import app.states.test.TestGameState;
 import app.states.turn.TurnStartedState;
 import app.visualizers.entities.AnimatedCardMatrixEntity;
 import jGameLib.core.GameState;
