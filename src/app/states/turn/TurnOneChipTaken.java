@@ -4,6 +4,7 @@ import app.constants.Color;
 import app.constants.FinalLocation;
 import app.constants.Styles;
 import app.game.Game;
+import app.states.game.RulesState;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 import jGameLib.ui2d.utils.ButtonEntity;
@@ -23,6 +24,8 @@ public class TurnOneChipTaken extends GameState {
         this.prevGame = prevGame;
         this.prevColor = prevColor;
         List<Boolean> canTakeSecond = game.canTakeSecond();
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
         game.visualizer.useGrayStacks(
                 Arrays.asList(
                         prevColor == Color.RED && canTakeSecond.get(0),
@@ -34,7 +37,6 @@ public class TurnOneChipTaken extends GameState {
                 )
         );
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
-        game.addGame(this);
         new ButtonEntity(
                 this,
                 "cancel move",
@@ -53,6 +55,27 @@ public class TurnOneChipTaken extends GameState {
         ).addComponents(
                 new UIRendererRootComponent()
         );
+        game.addGame(this);
+        new ButtonEntity(
+                this,
+                "",
+                null,
+                null,
+                Styles.titleText
+        ).addClickListener(
+                        (entity, me) -> {
+                            nextState = new RulesState(this, () -> nextState = null);
+                        }
+                )
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(FinalLocation.BACK_BUTTON.getLocation()).setRenderOrder(98);
+                            b.setSize(250, 65);
+                        }
+                )
+                .addComponents(
+                        new UIRendererRootComponent()
+                );
     }
 
     @Override
@@ -88,8 +111,6 @@ public class TurnOneChipTaken extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        game.visualizer.cancelGrayCards();
-        game.visualizer.cancelGrayStacks();
         return iteratorOver(nextState);
     }
 }

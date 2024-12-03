@@ -30,7 +30,7 @@ public enum ObjectLocations {
         Vec2 baseLocation;
         switch (this) {
             case ACTIVE_PLAYER_CARDS -> baseLocation = new Vec2(-139, -145);
-            case ACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(-139, 400);
+            case ACTIVE_PLAYER_CHIPS -> baseLocation = new Vec2(-139, 375);
             default -> throw new Exception("Attempting to get active location of an inactive location");
         }
         baseLocation = baseLocation.plus(102.5 * color.getNumVal(), 0);

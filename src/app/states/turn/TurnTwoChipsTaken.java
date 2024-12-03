@@ -4,6 +4,7 @@ import app.constants.Color;
 import app.constants.FinalLocation;
 import app.constants.Styles;
 import app.game.Game;
+import app.states.game.RulesState;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
 import jGameLib.ui2d.utils.ButtonEntity;
@@ -32,9 +33,10 @@ public class TurnTwoChipsTaken extends GameState {
                         true
                 )
         );
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.visualizer.cancelGrayStacks();
-        game.addGame(this);
         new ButtonEntity(
                 this,
                 "cancel move",
@@ -53,6 +55,27 @@ public class TurnTwoChipsTaken extends GameState {
         ).addComponents(
                 new UIRendererRootComponent()
         );
+        game.addGame(this);
+        new ButtonEntity(
+                this,
+                "",
+                null,
+                null,
+                Styles.titleText
+        ).addClickListener(
+                        (entity, me) -> {
+                            nextState = new RulesState(this, () -> nextState = null);
+                        }
+                )
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(FinalLocation.BACK_BUTTON.getLocation()).setRenderOrder(98);
+                            b.setSize(600, 100);
+                        }
+                )
+                .addComponents(
+                        new UIRendererRootComponent()
+                );
     }
 
     @Override
@@ -82,8 +105,6 @@ public class TurnTwoChipsTaken extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        game.visualizer.cancelGrayStacks();
-        game.visualizer.cancelGrayStacks();
         return iteratorOver(nextState);
     }
 }

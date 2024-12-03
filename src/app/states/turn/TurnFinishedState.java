@@ -4,6 +4,7 @@ import app.constants.FinalLocation;
 import app.constants.Styles;
 import app.game.Game;
 import app.states.game.EndScreenState;
+import app.states.game.RulesState;
 import app.states.game.TitleState;
 import jGameLib.core.GameState;
 import jGameLib.ui2d.rendering.UIRendererRootComponent;
@@ -19,8 +20,9 @@ public class TurnFinishedState extends GameState {
 
     public TurnFinishedState(Game game, Game prevGame) {
         this.game = game;
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
-        game.addGame(this);
         new ButtonEntity(
                 this,
                 "continue",
@@ -62,6 +64,27 @@ public class TurnFinishedState extends GameState {
         ).addComponents(
                 new UIRendererRootComponent()
         );
+        game.addGame(this);
+        new ButtonEntity(
+                this,
+                "",
+                null,
+                null,
+                Styles.titleText
+        ).addClickListener(
+                        (entity, me) -> {
+                            nextState = new RulesState(this, () -> nextState = null);
+                        }
+                )
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(FinalLocation.BACK_BUTTON.getLocation()).setRenderOrder(98);
+                            b.setSize(250, 65);
+                        }
+                )
+                .addComponents(
+                        new UIRendererRootComponent()
+                );
     }
 
     @Override
@@ -76,8 +99,6 @@ public class TurnFinishedState extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        game.visualizer.cancelGrayCards();
-        game.visualizer.cancelGrayCards();
         return iteratorOver(nextState);
     }
 }

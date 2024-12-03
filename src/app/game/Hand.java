@@ -118,7 +118,7 @@ public class Hand {
     }
 
     public int getPoints() {
-        int res = 15;
+        int res = 0;
         for (Noble noble : nobles) {
             res += 3;
         }

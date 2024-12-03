@@ -1,10 +1,15 @@
 package app.states.turn;
 
 import app.constants.Color;
+import app.constants.FinalLocation;
+import app.constants.Styles;
 import app.game.Game;
 import app.objects.Card;
+import app.states.game.RulesState;
 import app.states.test.TestGameState;
 import jGameLib.core.GameState;
+import jGameLib.ui2d.rendering.UIRendererRootComponent;
+import jGameLib.ui2d.utils.ButtonEntity;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -18,13 +23,34 @@ public class TurnStartedState extends GameState {
     public TurnStartedState(Game game) {
         this.game = game;
         prevGame = game.createClone();
+        game.visualizer.cancelGrayCards();
+        game.visualizer.cancelGrayStacks();
         game.visualizer.usePlayerGrayCards(game.getActivePlayer());
         game.visualizer.useGrayStacks(
                 Arrays.asList(
                         false, false, false, false, false, true
                 )
         );
-        game.addGame(this);
+        game.addGame(this);new ButtonEntity(
+                this,
+                "",
+                null,
+                null,
+                Styles.titleText
+        ).addClickListener(
+                        (entity, me) -> {
+                            nextState = new RulesState(this, () -> nextState = null);
+                        }
+                )
+                .withBoundingBox(
+                        b -> {
+                            b.setAbsolutePosition(FinalLocation.BACK_BUTTON.getLocation()).setRenderOrder(98);
+                            b.setSize(250, 65);
+                        }
+                )
+                .addComponents(
+                        new UIRendererRootComponent()
+                );
     }
 
     @Override
@@ -68,8 +94,6 @@ public class TurnStartedState extends GameState {
 
     @Override
     public Iterator<? extends GameState> getStatesAfter() {
-        game.visualizer.cancelGrayCards();
-        game.visualizer.cancelGrayStacks();
         return iteratorOver(nextState);
     }
 }

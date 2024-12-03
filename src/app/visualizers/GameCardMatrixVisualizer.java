@@ -7,7 +7,6 @@ import app.visualizers.entities.CardMatrixEntity;
 import jGameLib.core.GameState;
 import jGameLib.util.Pair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,16 +59,5 @@ public class GameCardMatrixVisualizer {
     public Card getCardClicked() {
         if (getIndexClicked() == null) return null;
         return cardMatrix.get(getIndexClicked().a()).get(getIndexClicked().b());
-    }
-
-    public Card getCard(Pair<Integer, Integer> index) {
-        Card res = cardMatrix.get(index.a()).get(index.b());
-        Card next = decks.get(index.a()).drawTopCard();
-        cardMatrix.get(index.a()).set(index.b(), next);
-        return next;
-    }
-
-    List<List<Card>> getCardMatrix() {
-        return cardMatrix;
     }
 }

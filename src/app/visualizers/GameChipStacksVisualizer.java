@@ -57,7 +57,7 @@ public class GameChipStacksVisualizer {
                         new RoundedRectRendererComponent(
                                 size.x / 3,
                                 null,
-                                new java.awt.Color(0, 0, 0, 200)
+                                new java.awt.Color(0, 0, 0, 186)
                         )
                 );
             }

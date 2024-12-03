@@ -27,7 +27,6 @@ public class TitleState extends GameState {
                         b -> {
                             b.setAbsolutePosition(FinalLocation.START_BUTTON.getLocation());
                             b.setRenderOrder(99);
-                            b.setSize(500, 65);
                         }
                 )
                 .addComponents(
@@ -51,8 +50,8 @@ public class TitleState extends GameState {
                 )
                 .withBoundingBox(
                         b -> {
-                            b.setAbsolutePosition(FinalLocation.TITLE_RULES_BUTTON.getLocation()).setRenderOrder(98);
-                            b.setSize(450, 65);
+                            b.setAbsolutePosition(FinalLocation.TITLE_RULES_BUTTON.getLocation());
+                            b.setRenderOrder(98);
                         }
                 )
                 .addComponents(
@@ -62,7 +61,11 @@ public class TitleState extends GameState {
         new UIEntity(
                 this
         ).withBoundingBox(
-                        b -> b.setAbsolutePosition(new Vec2(0, 0)).setSize(1920, 1080).setRenderOrder(-100)
+                        b -> {
+                            b.setAbsolutePosition(new Vec2(0, 0));
+                            b.setSize(1920, 1080);
+                            b.setRenderOrder(-100);
+                        }
                 )
                 .addComponents(
                         new ImageRendererComponent("BG images/Start Screen.jpg"),

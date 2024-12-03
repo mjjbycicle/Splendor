@@ -122,6 +122,7 @@ public class GameVisualizer {
                 );
             }
         }
+        ;
     }
 
     public void useGrayStacks(List<Boolean> grayStacks) {
