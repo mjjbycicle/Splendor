@@ -43,8 +43,8 @@ public class Hand {
 
     private Price getCardTotal() {
         Price total = new Price();
-        for (CardStack stack : cards.values()) {
-            if (stack.getColor() != Color.ANY) total.plus(stack.getValue());
+        for (Map.Entry<Color, CardStack> entry : cards.entrySet()) {
+            if (entry.getKey() != Color.ANY) total.plus(entry.getValue().getValue());
         }
         return total;
     }
@@ -78,7 +78,6 @@ public class Hand {
         Price diff = total.minus(cost);
         int anyRequired = 0;
         for (Map.Entry<Color, Integer> entry : diff.getGems().entrySet()) {
-            entry.setValue(entry.getValue() + cards.get(entry.getKey()).getValue().getNum());
             if (entry.getValue() < 0) {
                 cost.set(entry.getKey(), cost.getGems().get(entry.getKey()) + entry.getValue());
                 anyRequired -= entry.getValue();

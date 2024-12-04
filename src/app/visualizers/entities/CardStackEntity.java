@@ -137,11 +137,19 @@ public class CardStackEntity extends UIEntity {
         for (int i = 0; i < clickedList.size(); i++) {
             if (clickedList.get(i)) {
                 Card res = cards.get(i);
-                clickedList.remove(i);
-                stack.removeCard(res);
                 return res;
             }
         }
         return null;
+    }
+
+    public void removeClickedCard(Card card) {
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getID() == card.getID()) {
+                cards.remove(i);
+                clickedList.remove(i);
+                break;
+            }
+        }
     }
 }

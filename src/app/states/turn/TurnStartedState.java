@@ -79,6 +79,7 @@ public class TurnStartedState extends GameState {
             if (clickedReservedCard != null) {
                 if (game.getActivePlayer().hand.canBuyCard(clickedReservedCard)) {
                     game.addChips(game.getActivePlayer().hand.buyCard(clickedReservedCard));
+                    game.getActivePlayer().visualizer.removeReservedCard(clickedReservedCard);
                     nextState = new TurnFinishedState(game, prevGame);
                 }
             }

@@ -169,4 +169,8 @@ public class HandVisualizer {
     public Card getClickedReservedCard() {
         return cardStackEntities.get(Color.ANY).getClickedCard();
     }
+
+    public void removeReservedCard(Card card) {
+        cards.get(Color.ANY).removeCard(card);
+    }
 }

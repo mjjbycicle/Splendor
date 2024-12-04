@@ -70,7 +70,7 @@ public class TurnTwoChipsTaken extends GameState {
                 .withBoundingBox(
                         b -> {
                             b.setAbsolutePosition(FinalLocation.BACK_BUTTON.getLocation()).setRenderOrder(98);
-                            b.setSize(600, 100);
+                            b.setSize(250, 65);
                         }
                 )
                 .addComponents(

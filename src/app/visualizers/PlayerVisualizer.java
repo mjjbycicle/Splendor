@@ -77,4 +77,8 @@ public class PlayerVisualizer {
     public Card getClickedReservedCard() {
         return hand.getClickedReservedCard();
     }
+
+    public void removeReservedCard(Card card) {
+        hand.removeReservedCard(card);
+    }
 }
