@@ -50,15 +50,17 @@ public class Hand {
     }
 
     public Price buyCard(Card card) {
-        cards.get(card.getValue().getColor()).pushCard(card);
         Price res = chipsToPay(card);
         removeChips(res);
+        cards.get(card.getValue().getColor()).pushCard(card);
         return res;
     }
 
     public void addChips(Value value) {
         for (ChipStack stack : chips.values()) {
-            stack.add(value);
+            if (value.getGems().get(stack.getValue().getColor()) > 0) {
+                stack.add(value);
+            }
         }
     }
 
@@ -79,7 +81,11 @@ public class Hand {
         int anyRequired = 0;
         for (Map.Entry<Color, Integer> entry : diff.getGems().entrySet()) {
             if (entry.getValue() < 0) {
-                cost.set(entry.getKey(), cost.getGems().get(entry.getKey()) + entry.getValue());
+                cost.set(
+                        entry.getKey(),
+                        Math.max(0, getStackTotal().getGems().get(entry.getKey())
+                                - getCardTotal().getGems().get(entry.getKey()))
+                );
                 anyRequired -= entry.getValue();
                 entry.setValue(0);
             }
