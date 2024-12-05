@@ -46,7 +46,11 @@ public class SingleValue extends Value {
 
     @Override
     public Value minus(Value other) {
-        num -= other.getGems().get(color);
+        if (other.getGems().get(color) <= num) {
+            num -= other.getGems().get(color);
+        } else {
+            num = 0;
+        }
         return this;
     }
 

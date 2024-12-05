@@ -85,6 +85,7 @@ public class TurnFinishedState extends GameState {
                 .addComponents(
                         new UIRendererRootComponent()
                 );
+        game.takeNobles();
     }
 
     @Override

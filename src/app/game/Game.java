@@ -37,13 +37,13 @@ public class Game {
         );
         nobles = new ArrayList<>();
         chipStacks = Arrays.asList(
-                        new ChipStack(new SingleValue(Color.RED, 7)),
-                        new ChipStack(new SingleValue(Color.BLUE, 7)),
-                        new ChipStack(new SingleValue(Color.GREEN, 7)),
-                        new ChipStack(new SingleValue(Color.BLACK, 7)),
-                        new ChipStack(new SingleValue(Color.WHITE, 7)),
-                        new ChipStack(new SingleValue(Color.ANY, 5))
-                );
+                new ChipStack(new SingleValue(Color.RED, 7)),
+                new ChipStack(new SingleValue(Color.BLUE, 7)),
+                new ChipStack(new SingleValue(Color.GREEN, 7)),
+                new ChipStack(new SingleValue(Color.BLACK, 7)),
+                new ChipStack(new SingleValue(Color.WHITE, 7)),
+                new ChipStack(new SingleValue(Color.ANY, 5))
+        );
         addNobles();
         cardMatrix = new ArrayList<>();
         initCards();
@@ -217,5 +217,15 @@ public class Game {
                 return comp2;
             }
         }).get().id;
+    }
+
+    public void takeNobles() {
+        for (int i = 0; i < nobles.size(); i++) {
+            if (getActivePlayer().canTakeNoble(nobles.get(i))) {
+                getActivePlayer().takeNoble(nobles.get(i));
+                nobles.remove(i);
+                i--;
+            }
+        }
     }
 }

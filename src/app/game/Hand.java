@@ -77,17 +77,13 @@ public class Hand {
     private Price chipsToPay(Card card) {
         Price total = getHandTotal();
         Price cost = card.getPrice();
-        Price diff = total.minus(cost);
         int anyRequired = 0;
-        for (Map.Entry<Color, Integer> entry : diff.getGems().entrySet()) {
-            if (entry.getValue() < 0) {
-                cost.set(
-                        entry.getKey(),
-                        Math.max(0, getStackTotal().getGems().get(entry.getKey())
-                                - getCardTotal().getGems().get(entry.getKey()))
-                );
-                anyRequired -= entry.getValue();
-                entry.setValue(0);
+        for (Color color : Color.values()) {
+            if (total.getGems().get(color) < cost.getGems().get(color)) {
+                anyRequired += cost.getGems().get(color) - total.getGems().get(color);
+                cost.getGems().put(color, getStackTotal().getGems().get(color));
+            } else {
+                cost.getGems().put(color, Math.max(0, cost.getGems().get(color) - getCardTotal().getGems().get(color)));
             }
         }
         cost.set(Color.ANY, anyRequired);

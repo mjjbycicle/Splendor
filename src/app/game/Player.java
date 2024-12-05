@@ -1,5 +1,6 @@
 package app.game;
 
+import app.objects.Noble;
 import app.visualizers.PlayerVisualizer;
 import jGameLib.core.GameState;
 
@@ -41,5 +42,13 @@ public class Player {
 
     public Player createClone() {
         return new Player(this.hand.createClone(), this.id, this.roundOrder);
+    }
+
+    public boolean canTakeNoble(Noble noble) {
+        return hand.canTakeNoble(noble);
+    }
+
+    public void takeNoble(Noble noble) {
+        hand.takeNoble(noble);
     }
 }
